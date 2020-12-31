@@ -1,0 +1,41 @@
+import pygame
+from pygame.locals import *
+import sys
+
+SCREEN_WIDTH: int = 800
+SCREEN_HEIGHT: int = 600
+FPS: int = 30
+FramesPerSecond = pygame.time.Clock()
+
+if pygame.init() == 0:
+    print("PyGame could not initialize")
+
+logo = pygame.image.load("8bitlink.png")
+pygame.display.set_icon(logo)
+pygame.display.set_caption("# Learn to Code")
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+playerImage = pygame.image.load("really tiny soldier.png")
+player_x: int = 400
+player_y: int = 300
+
+
+
+def player():
+    screen.blit(playerImage, (player_x, player_y))
+
+
+running = True
+while running:
+    screen.fill((0, 0, 0))
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+            pygame.quit()
+            sys.exit()
+
+    player()
+    pygame.display.update()
+    FramesPerSecond.tick(FPS)
+
