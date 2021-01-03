@@ -19,24 +19,28 @@ pygame.display.set_caption("# Learn to Code")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 playerImage = pygame.image.load("really tiny soldier.png")
-pygame.transform.rotate(playerImage, 200)
 
 player_x: int = 400
 player_y: int = 300
+
 
 xDelta: int = 0
 yDelta: int = 0
 
 
 def player(angle, x, y):
-    radian = math.atan2((angle[1] - y), (angle[0] - x))
-    dy = -1 * math.degrees(radian)
-    screen.blit(pygame.transform.rotate(playerImage, dy), (x , y))
+    rot_radian = math.atan2((angle[1] - y), (angle[0] - x))
+    dy = -1 * math.degrees(rot_radian)
+    screen.blit(pygame.transform.rotate(playerImage, dy), (x, y))
 
 
 def draw_bullet():
     for bullet_object in bullet.bulletList:
-        screen.blit(pygame.transform.rotate(bullet_object.image, bullet_object.direction), (bullet_object.location[0], bullet_object.location[1]))
+        if bullet_object.locationx>SCREEN_WIDTH or bullet_object.locationx<0 or bullet_object.locationy>SCREEN_HEIGHT or bullet_object.locationy<0:
+            bullet.bulletList.remove(bullet_object)
+        else:
+            screen.blit(pygame.transform.rotate(bullet_object.image, bullet_object.direction), (bullet_object.locationx + bullet_object.changex, bullet_object.locationy + bullet_object.changey))
+            bullet_object.set_location(bullet_object.locationx + bullet_object.changex, bullet_object.locationy + bullet_object.changey)
 
 
 running = True
@@ -50,8 +54,14 @@ while running:
             pygame.quit()
             sys.exit()
 
-        #if event.type == pygame.mouse.get_pressed():
+        if event.type == pygame.MOUSEBUTTONDOWN:
 
+            radian = math.atan2((mouse[1] - player_y), (mouse[0] - player_x))
+            direct = -1 * math.degrees(radian)
+            buldeltay = math.sin(radian) * 10
+            buldeltax = math.cos(radian) * 10
+            new_bullet = bullet.Bullet(40, direct, 10, player_x, player_y, buldeltax, buldeltay)
+            bullet.bulletList.append(new_bullet)
 
         if event.type == pygame.KEYDOWN:
 
@@ -63,11 +73,6 @@ while running:
                 yDelta -= 5
             if event.key == pygame.K_s:
                 yDelta += 5
-            if event.key == pygame.K_SPACE:
-                radian = math.atan2((mouse[1] - player_y), (mouse[0] - player_x))
-                direct = -1 * math.degrees(radian)
-                new_bullet = bullet.Bullet(40, direct, 10, (player_x, player_y))
-                bullet.bulletList.append(new_bullet)
 
         if event.type == pygame.KEYUP:
 
