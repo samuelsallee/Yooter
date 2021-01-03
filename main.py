@@ -1,7 +1,5 @@
 import Header
 from Header import*
-import bullet
-
 
 
 SCREEN_WIDTH: int = 800
@@ -20,13 +18,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 playerImage = pygame.image.load("really tiny soldier.png")
 
-player_x: int = 400
-player_y: int = 300
-
-
-xDelta: int = 0
-yDelta: int = 0
-
 
 def player(angle, x, y):
     rot_radian = math.atan2((angle[1] - y), (angle[0] - x))
@@ -43,11 +34,17 @@ def draw_bullet():
             bullet_object.set_location(bullet_object.locationx + bullet_object.changex, bullet_object.locationy + bullet_object.changey)
 
 
+player_x = 400
+player_y = 300
+xDelta = 0
+yDelta = 0
+
 running = True
 
 while running:
     screen.fill((0, 0, 0))
     mouse = pygame.mouse.get_pos()
+
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
@@ -55,7 +52,6 @@ while running:
             sys.exit()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-
             radian = math.atan2((mouse[1] - player_y), (mouse[0] - player_x))
             direct = -1 * math.degrees(radian)
             buldeltay = math.sin(radian) * 10
@@ -84,7 +80,14 @@ while running:
                 yDelta += 5
             if event.key == pygame.K_s:
                 yDelta -= 5
-
+    if player_x < 0:
+        player_x = 0
+    if player_x > SCREEN_WIDTH - playerImage.get_size()[0]:
+        player_x = SCREEN_WIDTH - playerImage.get_size()[0]
+    if player_y < 0:
+        player_y = 0
+    if player_y > SCREEN_HEIGHT - playerImage.get_size()[1]:
+        player_y = SCREEN_HEIGHT - playerImage.get_size()[1]
     player_x += xDelta
     player_y += yDelta
 
@@ -92,4 +95,3 @@ while running:
     draw_bullet()
     pygame.display.update()
     FramesPerSecond.tick(FPS)
-
