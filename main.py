@@ -60,7 +60,7 @@ while running:
             direct = -1 * math.degrees(radian)
             buldeltay = math.sin(radian) * 10
             buldeltax = math.cos(radian) * 10
-            new_bullet = bullet.Bullet(40, direct, 10, player_x, player_y, buldeltax, buldeltay)
+            new_bullet = bullet.Bullet(40, direct, 10, player_x + (math.cos(radian+.45) * 21), player_y + (math.sin(radian + .45) * 21), buldeltax, buldeltay)
             bullet.bulletList.append(new_bullet)
 
         if event.type == pygame.KEYDOWN:
