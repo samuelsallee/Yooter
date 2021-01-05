@@ -1,6 +1,6 @@
-import Header
-from Header import*
-
+from header import *
+import bullet
+from enemy import enemy
 
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
@@ -27,22 +27,25 @@ def player(angle, x, y):
 
 def draw_bullet():
     for bullet_object in bullet.bulletList:
-        if bullet_object.locationx>SCREEN_WIDTH or bullet_object.locationx<0 or bullet_object.locationy>SCREEN_HEIGHT or bullet_object.locationy<0:
+        if bullet_object.locationx > SCREEN_WIDTH or bullet_object.locationx < 0 or bullet_object.locationy > SCREEN_HEIGHT or bullet_object.locationy < 0:
             bullet.bulletList.remove(bullet_object)
         else:
-            screen.blit(pygame.transform.rotate(bullet_object.image, bullet_object.direction), (bullet_object.locationx + bullet_object.changex, bullet_object.locationy + bullet_object.changey))
-            bullet_object.set_location(bullet_object.locationx + bullet_object.changex, bullet_object.locationy + bullet_object.changey)
+            screen.blit(pygame.transform.rotate(bullet_object.image, bullet_object.direction), (
+                bullet_object.locationx + bullet_object.changex, bullet_object.locationy + bullet_object.changey))
+            bullet_object.set_location(bullet_object.locationx + bullet_object.changex,
+                                       bullet_object.locationy + bullet_object.changey)
 
 
 player_x = 400
 player_y = 300
 xDelta = 0
 yDelta = 0
-
+Goblin = enemy(10, 10, 8, 8, 2, 550) #initalize enemy
 running = True
 
 while running:
     screen.fill((0, 0, 0))
+    Goblin.draw(screen) #draw the enmy on the screen
     mouse = pygame.mouse.get_pos()
 
     for event in pygame.event.get():
