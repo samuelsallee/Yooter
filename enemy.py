@@ -2,7 +2,7 @@ from header import *
 
 
 class enemy:
-    static = pygame.image.load('Eliteknightshotgun.png')
+    static = pygame.transform.scale(pygame.image.load('Eliteknightshotgun.png'),(64,64))
 
     def __init__(self, x, y, width, height, vel, end):
         self.x = x
@@ -30,3 +30,5 @@ class enemy:
         else:
             if self.x - self.velocity > self.path[0]:
                 self.x += self.velocity
+
+
