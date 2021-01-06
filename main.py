@@ -1,4 +1,4 @@
-from header import *
+from header import*
 import bullet
 from enemy import enemy
 
@@ -41,7 +41,7 @@ player_x = 400
 player_y = 300
 xDelta = 0
 yDelta = 0
-Goblin = enemy(10, 10, 8, 8, 2, 550) #initalize enemy
+Goblin = enemy(0, 0, 64, 64, 2, 550) #initalize enemy
 running = True
 
 while running:
