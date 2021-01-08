@@ -21,7 +21,7 @@ class enemy:
         if self.velocity > 0:
             screen.blit(self.static, (self.x, self.y))
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
-        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2)#drawing hitbox right now
+        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2) #drawing hitbox right now
 
     def move(self):
         if self.velocity > 0:
@@ -33,3 +33,11 @@ class enemy:
         else:
             if self.x - self.velocity > self.path[0]:
                 self.x += self.velocity
+
+    def hit(self,dam):
+        print("Hit!")
+        self.dam = dam
+
+        #if self.miss
+
+

@@ -14,6 +14,10 @@ logo = pygame.image.load("8bitlink.png")
 pygame.display.set_icon(logo)
 pygame.display.set_caption("# Learn to Code")
 
+backgroundsound = pygame.mixer.music.load('bgmusic.wav')
+pygame.mixer.music.play(-1)
+
+Gunfire = pygame.mixer.Sound('gunfire.wav')
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 playerImage = pygame.image.load("really tiny soldier.png")
@@ -28,6 +32,7 @@ def player(angle, x, y):
 
 def draw_bullet():
     for bullet_object in bullet.bulletList:
+        #if bullet.locy - radian < Goblin.hitbox[1]+Goblin.hitbox[2] and bullet.locy# hit detection
         if bullet_object.locationx > SCREEN_WIDTH or bullet_object.locationx < 0 or bullet_object.locationy > SCREEN_HEIGHT or bullet_object.locationy < 0:
             bullet.bulletList.remove(bullet_object)
         else:
@@ -62,6 +67,7 @@ while running:
             buldeltax = math.cos(radian) * 10
             new_bullet = bullet.Bullet(40, direct, 10, player_x + (math.cos(radian+.45) * 21), player_y + (math.sin(radian + .45) * 21), buldeltax, buldeltay)
             bullet.bulletList.append(new_bullet)
+            Gunfire.play()
 
         if event.type == pygame.KEYDOWN:
 
