@@ -41,8 +41,4 @@ class Bullet:
         return self.locationx
 
 
-bullet1 = Bullet(0, 0, 0, 0, 0, 0, 0)
-bullet2 = Bullet(0, 0, 0, 0, 0, 0, 0)
 bulletList = list((bullet1, bullet2))
-bulletList.pop()
-bulletList.pop()
