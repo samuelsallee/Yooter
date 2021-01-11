@@ -4,7 +4,7 @@ from header import *
 class enemy:
     static = pygame.transform.scale(pygame.image.load('Eliteknightshotgun.png'), (64, 64))
 
-    def __init__(self, x, y, width, height, vel, end):
+    def __init__(self, x, y, width, height, vel, end, health):
         self.x = x
         self.y = y
         self.width = width
@@ -15,6 +15,7 @@ class enemy:
         # self.count = 0# for animation later
         self.velocity = vel
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
+        self.health = health
 
     def draw(self, screen):
         self.move()
@@ -39,5 +40,3 @@ class enemy:
         self.dam = dam
 
         #if self.miss
-
-
