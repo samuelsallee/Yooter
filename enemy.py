@@ -17,26 +17,20 @@ class enemy:
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
         self.health = health
 
-    def draw(self, screen):
-        self.move()
+    def draw(self, screen, player_x, player_y):
+        self.move(player_x, player_y)
         if self.velocity > 0:
             screen.blit(self.static, (self.x, self.y))
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
         pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2) #drawing hitbox right now
 
-    def move(self):
-        if self.velocity > 0:
-            if self.x + self.velocity < self.path[1]:
-                self.x += self.velocity
-            else:
-                self.velocity = self.velocity * -1  # for reversing path, not used currently
-                # self.count = 0# for animation later
-        else:
-            if self.x - self.velocity > self.path[0]:
-                self.x += self.velocity
+    def move(self, player_x, player_y):
+        radian = math.atan2((self.y - player_y), (self.x - player_x))
+        enemy_delta_y = math.sin(radian) * -3
+        enemy_delta_x = math.cos(radian) * -3
+        self.y += enemy_delta_y
+        self.x += enemy_delta_x
 
     def hit(self,dam):
         print("Hit!")
         self.dam = dam
-
-        #if self.miss
