@@ -3,6 +3,8 @@ import bullet
 from enemy import enemy
 import draw
 
+testing = 1
+
 start = float(round(time.time()))
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
@@ -17,15 +19,20 @@ logo = pygame.image.load("8bitlink.png")
 pygame.display.set_icon(logo)
 pygame.display.set_caption("# Learn to Code")
 
-pygame.mixer.music.load('bgmusic.wav')
-pygame.mixer.music.play(-1)
+background = pygame.image.load("backgrounddetailed1.png")
 
-Gunfire = pygame.mixer.Sound('gunfire.wav')
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+if testing == 0:
+    pygame.mixer.music.load('bgmusic.wav')
+    pygame.mixer.music.play(-1)
+    Gunfire = pygame.mixer.Sound('gunfire.wav')
+else:
+    Gunfire = pygame.mixer.Sound('Silent.wav')
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
 playerImage = pygame.image.load("really tiny soldier.png")
 
-bullet_damage: int = 40
+bullet_damage: int = 100
 bullet_speed: int = 10
 
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
@@ -40,13 +47,14 @@ def hit_logic():
                     enemy_object.health -= bullet_object.damage
 
 
+background_x: int = -500
+background_y: int = -500
 player_x = 400
 player_y = 300
 xDelta = 0
 yDelta = 0
 extra_enemies: int = 0
 running = True
-
 
 while running:
     screen.fill((0, 0, 0))
@@ -56,7 +64,9 @@ while running:
         now = float(round(time.time()))
         while i < extra_enemies:
             around = float(random.random() * 10)
-            Goblin = enemy(math.cos(around)*500+SCREEN_WIDTH/2, math.sin(around)*500 + SCREEN_HEIGHT/2, 64, 64, 2, 550, 100)
+            Goblin = enemy(math.cos(around) * 500 + SCREEN_WIDTH / 2, math.sin(around) * 500 + SCREEN_HEIGHT / 2, 64,
+                           64, 2, 550,
+                           100 + (now - start) / 10)
             enemyList.append(Goblin)
             i += 1
         extra_enemies += 1
@@ -68,6 +78,12 @@ while running:
             running = False
             pygame.quit()
             sys.exit()
+
+        elif event.type == VIDEORESIZE:
+            SCREEN_WIDTH = screen.get_width()
+            SCREEN_HEIGHT = screen.get_height()
+            player_x = SCREEN_WIDTH / 2
+            player_y = SCREEN_HEIGHT / 2
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             radian = math.atan2((mouse[1] - player_y), (mouse[0] - player_x))
@@ -108,10 +124,15 @@ while running:
         player_y = 0
     if player_y > SCREEN_HEIGHT - playerImage.get_size()[1]:
         player_y = SCREEN_HEIGHT - playerImage.get_size()[1]
-    player_x += xDelta
-    player_y += yDelta
 
-    draw.draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList)
+    background_x -= xDelta
+    background_y -= yDelta
+    if background_x >= 0:
+        background_x = -500
+    if background_y >= 0:
+        background_y = -500
+    draw.draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background,
+              xDelta, yDelta, background_x, background_y)
     hit_logic()
     pygame.display.update()
     FramesPerSecond.tick(FPS)
