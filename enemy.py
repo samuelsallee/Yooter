@@ -17,19 +17,19 @@ class enemy:
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
         self.health = health
 
-    def draw(self, screen, player_x, player_y):
-        self.move(player_x, player_y)
+    def draw(self, screen, player_x, player_y, xDelta, yDelta):
+        self.move(player_x, player_y, xDelta, yDelta)
         if self.velocity > 0:
             screen.blit(self.static, (self.x, self.y))
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
         pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2) #drawing hitbox right now
 
-    def move(self, player_x, player_y):
+    def move(self, player_x, player_y, xDelta, yDelta):
         radian = math.atan2((self.y - player_y), (self.x - player_x))
         enemy_delta_y = math.sin(radian) * -3
         enemy_delta_x = math.cos(radian) * -3
-        self.y += enemy_delta_y
-        self.x += enemy_delta_x
+        self.y += enemy_delta_y - yDelta
+        self.x += enemy_delta_x - xDelta
 
     def hit(self,dam):
         print("Hit!")
