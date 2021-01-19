@@ -36,7 +36,7 @@ bullet_damage: int = 100
 bullet_speed: int = 10
 
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
-
+score = 0
 
 def hit_logic():
     for bullet_object in bullet.bulletList:
@@ -45,7 +45,12 @@ def hit_logic():
                 if enemy_object.y < bullet_object.locationy < enemy_object.y + enemy_object.width:
                     bullet_object.locationx = -6
                     enemy_object.health -= bullet_object.damage
+                    global score #uses global varriable score inside the function
+                    score = score+5 #increases score by 5 for every hit
 
+
+
+font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
 
 background_x: int = -500
 background_y: int = -500
@@ -134,5 +139,7 @@ while running:
     draw.draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background,
               xDelta, yDelta, background_x, background_y)
     hit_logic()
+    scoretxt = font.render("Score: " + str(score),True,(0,0,0))
+    screen.blit(scoretxt,(0,0))
     pygame.display.update()
     FramesPerSecond.tick(FPS)
