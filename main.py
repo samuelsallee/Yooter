@@ -43,7 +43,7 @@ def hit_logic():
         for enemy_object in enemyList:
             if enemy_object.x < bullet_object.locationx < enemy_object.x + enemy_object.width:
                 if enemy_object.y < bullet_object.locationy < enemy_object.y + enemy_object.width:
-                    bullet_object.locationx = -6
+                    bullet_object.locationx = -6000
                     enemy_object.health -= bullet_object.damage
                     global score #uses global varriable score inside the function
                     score = score+5 #increases score by 5 for every hit
