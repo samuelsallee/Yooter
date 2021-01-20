@@ -48,7 +48,6 @@ def hit_logic():
                     global score #uses global varriable score inside the function
                     score = score+5 #increases score by 5 for every hit
 
-#this is sam's doing
 
 font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
 
