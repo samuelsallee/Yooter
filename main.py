@@ -20,12 +20,6 @@ logo = pygame.image.load("8bitlink.png")
 pygame.display.set_icon(logo)
 pygame.display.set_caption("# Learn to Code")
 
-background = pygame.image.load("backgrounddetailed1.png")
-#randNum: int(random.random()*10)
-#if randNum < 10:
-#    background = pygame.image.load("backgrounddetailed1_flower.png")
-#else:
-#    background = pygame.image.load("backgrounddetailed1.png")
 
 if testing == 0:
     pygame.mixer.music.load('bgmusic.wav')
@@ -68,6 +62,16 @@ extra_enemies: int = 0
 running: bool = True
 pauseMenu: bool = False
 
+#background = pygame.image.load("backgrounddetailed1_flower.png")
+background = pygame.image.load("brickbackground.png")
+
+def setBackground():
+    randNum: int = int(random.random()*10)
+    if randNum < 5:
+        background = pygame.image.load("backgrounddetailed1_flower.png")
+    else:
+        background = pygame.image.load("backgrounddetailed1.png")
+
 def runPauseMenu():
     pauseMenuOff: bool = False
     while pauseMenuOff == False:
@@ -80,11 +84,9 @@ def runPauseMenu():
                     pauseMenuOff = True
         pygame.display.update()
         FramesPerSecond.tick(FPS)
-        draw.draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background,
-              xDelta, yDelta, background_x, background_y)
+        draw.draw(mouse, player_one.position_x, player_one.position_y, player_one.playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y)
 
 while running:
-    screen.fill((0, 0, 0))
 
     if len(enemyList) == 0:
         i: int = 0
@@ -146,6 +148,7 @@ while running:
                 yDelta -= 5
     if pauseMenu == True:
         runPauseMenu()
+        pauseMenu = False
     if player_one.position_x < 0:
         player_one.position_x = 0
     if player_one.position_x > SCREEN_WIDTH - playerImage.get_size()[0]:
