@@ -22,7 +22,9 @@ class enemy:
         if self.velocity > 0:
             screen.blit(self.static, (self.x, self.y))
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
-        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2) #drawing hitbox right now
+        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, 50, 10))
+        pygame.draw.rect(screen, (0, 128, 0), (self.x, self.y, self.health/2, 10))
+        #pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2)  # drawing hitbox right now
 
     def move(self, player_x, player_y, xDelta, yDelta):
         radian = math.atan2((self.y - player_y), (self.x - player_x))
@@ -31,6 +33,6 @@ class enemy:
         self.y += enemy_delta_y - yDelta
         self.x += enemy_delta_x - xDelta
 
-    def hit(self,dam):
-        print("Hit!")
-        self.dam = dam
+   # def hit(self, dam):
+      #print("Hit!")
+      #self.dam = dam
