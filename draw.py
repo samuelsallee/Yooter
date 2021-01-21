@@ -2,7 +2,6 @@ from header import*
 import bullet
 import enemy
 
-
 def draw_player(angle, x, y, playerImage, screen):
     rot_radian = math.atan2((angle[1] - y), (angle[0] - x))
     dy = -1 * math.degrees(rot_radian)
