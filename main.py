@@ -20,6 +20,11 @@ pygame.display.set_icon(logo)
 pygame.display.set_caption("# Learn to Code")
 
 background = pygame.image.load("backgrounddetailed1.png")
+#randNum: int(random.random()*10)
+#if randNum < 10:
+#    background = pygame.image.load("backgrounddetailed1_flower.png")
+#else:
+#    background = pygame.image.load("backgrounddetailed1.png")
 
 if testing == 0:
     pygame.mixer.music.load('bgmusic.wav')
@@ -58,7 +63,23 @@ player_y = 300
 xDelta = 0
 yDelta = 0
 extra_enemies: int = 0
-running = True
+running: bool = True
+pauseMenu: bool = False
+
+def runPauseMenu():
+    pauseMenuOff: bool = False
+    while pauseMenuOff == False:
+        fontSize: int = 200
+        pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
+        screen.blit(pauseFont.render("Pause", True, (0, 0, 0)), (SCREEN_WIDTH/2-fontSize, SCREEN_HEIGHT/2-fontSize/2))
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pauseMenuOff = True
+        pygame.display.update()
+        FramesPerSecond.tick(FPS)
+        draw.draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background,
+              xDelta, yDelta, background_x, background_y)
 
 while running:
     screen.fill((0, 0, 0))
@@ -109,6 +130,8 @@ while running:
                 yDelta -= 5
             if event.key == pygame.K_s:
                 yDelta += 5
+            if event.key == pygame.K_ESCAPE:
+                pauseMenu = True
 
         if event.type == pygame.KEYUP:
 
@@ -120,6 +143,10 @@ while running:
                 yDelta += 5
             if event.key == pygame.K_s:
                 yDelta -= 5
+
+    if pauseMenu == True:
+        runPauseMenu()
+
     if player_x < 0:
         player_x = 0
     if player_x > SCREEN_WIDTH - playerImage.get_size()[0]:
@@ -142,3 +169,5 @@ while running:
     screen.blit(scoretxt,(0,0))
     pygame.display.update()
     FramesPerSecond.tick(FPS)
+
+        
