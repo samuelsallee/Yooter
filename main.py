@@ -21,7 +21,7 @@ pygame.display.set_caption("# Learn to Code")
 
 background = pygame.image.load("backgrounddetailed1.png")
 
-#this is a useless comment
+#this is a dumb comment
 
 if testing == 0:
     pygame.mixer.music.load('bgmusic.wav')
