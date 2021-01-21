@@ -2,6 +2,7 @@ from header import *
 import bullet
 from enemy import enemy
 import draw
+import player
 
 testing = 1
 
@@ -31,12 +32,15 @@ else:
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
 playerImage = pygame.image.load("really tiny soldier.png")
+player_one = player.Player(playerImage, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 bullet_damage: int = 100
 bullet_speed: int = 10
 
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
 score = 0
+
+
 
 def hit_logic():
     for bullet_object in bullet.bulletList:
@@ -53,12 +57,10 @@ font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
 
 background_x: int = -500
 background_y: int = -500
-player_x = 400
-player_y = 300
-xDelta = 0
-yDelta = 0
+xDelta: float = 0
+yDelta: float = 0
 extra_enemies: int = 0
-running = True
+running: bool = True
 
 while running:
     screen.fill((0, 0, 0))
@@ -81,21 +83,20 @@ while running:
         if event.type == QUIT:
             running = False
             pygame.quit()
-            sys.exit()
 
         elif event.type == VIDEORESIZE:
             SCREEN_WIDTH = screen.get_width()
             SCREEN_HEIGHT = screen.get_height()
-            player_x = SCREEN_WIDTH / 2
-            player_y = SCREEN_HEIGHT / 2
+            player_one.position_x = SCREEN_WIDTH / 2
+            player__one.position_y = SCREEN_HEIGHT / 2
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            radian = math.atan2((mouse[1] - player_y), (mouse[0] - player_x))
+            radian = math.atan2((mouse[1] - player_one.position_y), (mouse[0] - player_one.position_x))
             direct = -1 * math.degrees(radian)
             buldeltay = math.sin(radian) * 10
             buldeltax = math.cos(radian) * 10
-            new_bullet = bullet.Bullet(bullet_damage, direct, bullet_speed, player_x + (math.cos(radian + .45) * 21),
-                                       player_y + (math.sin(radian + .45) * 21), buldeltax, buldeltay)
+            new_bullet = bullet.Bullet(bullet_damage, direct, bullet_speed, player_one.position_x + (math.cos(radian + .45) * 21),
+                                       player_one.position_y + (math.sin(radian + .45) * 21), buldeltax, buldeltay)
             bullet.bulletList.append(new_bullet)
             Gunfire.play()
 
@@ -120,14 +121,14 @@ while running:
                 yDelta += 5
             if event.key == pygame.K_s:
                 yDelta -= 5
-    if player_x < 0:
-        player_x = 0
-    if player_x > SCREEN_WIDTH - playerImage.get_size()[0]:
-        player_x = SCREEN_WIDTH - playerImage.get_size()[0]
-    if player_y < 0:
-        player_y = 0
-    if player_y > SCREEN_HEIGHT - playerImage.get_size()[1]:
-        player_y = SCREEN_HEIGHT - playerImage.get_size()[1]
+    if player_one.position_x < 0:
+        player_one.position_x = 0
+    if player_one.position_x > SCREEN_WIDTH - playerImage.get_size()[0]:
+        player_one.position_x = SCREEN_WIDTH - playerImage.get_size()[0]
+    if player_one.position_y < 0:
+        player_one.position_y = 0
+    if player_one.position_y > SCREEN_HEIGHT - playerImage.get_size()[1]:
+        player_one.position_y = SCREEN_HEIGHT - playerImage.get_size()[1]
 
     background_x -= xDelta
     background_y -= yDelta
@@ -135,8 +136,7 @@ while running:
         background_x = -500
     if background_y >= 0:
         background_y = -500
-    draw.draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background,
-              xDelta, yDelta, background_x, background_y)
+    draw.draw(mouse, player_one.position_x, player_one.position_y, player_one.playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y)
     hit_logic()
     scoretxt = font.render("Score: " + str(score),True,(0,0,0))
     screen.blit(scoretxt,(0,0))

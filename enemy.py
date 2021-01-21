@@ -33,6 +33,3 @@ class enemy:
         self.y += enemy_delta_y - yDelta
         self.x += enemy_delta_x - xDelta
 
-   # def hit(self, dam):
-      #print("Hit!")
-      #self.dam = dam
