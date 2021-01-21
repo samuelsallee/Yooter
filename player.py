@@ -7,13 +7,13 @@ class Player:
     def __init__(self, sprite, SCREEN_WIDTH, SCREEN_HEIGHT):
         self.playerImage = sprite
         self.image_copy = sprite
-        self.direction = 0
-        self.position_x = SCREEN_WIDTH/2
-        self.position_y = SCREEN_HEIGHT/2
-        self.health = 100
-        self.speed = 5
-        self.overall_position_x = 0
-        self.overall_position_y = 0
+        self.direction: int = 0
+        self.position_x: int = SCREEN_WIDTH/2
+        self.position_y: int = SCREEN_HEIGHT/2
+        self.health: float = 100
+        self.speed: int = 5
+        self.overall_position_x: int = 0
+        self.overall_position_y: int = 0
 
     def set_health(self, speed):
         self.speed = speed
