@@ -17,6 +17,9 @@ class enemy:
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
         self.health = health
 
+    def draw_pause(self, screen):
+        screen.blit(self.static, (self.x, self.y))
+        
     def draw(self, screen, player_x, player_y, xDelta, yDelta):
         self.move(player_x, player_y, xDelta, yDelta)
         if self.velocity > 0:

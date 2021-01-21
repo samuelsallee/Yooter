@@ -48,3 +48,20 @@ def draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, sc
     draw_player(mouse, player_x, player_y, playerImage, screen)
     draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta)
     draw_enemy(enemyList, screen, player_x, player_y, xDelta, yDelta)
+
+
+
+def draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT):
+    i = background_x
+    i2 = background_y
+    while i <= SCREEN_WIDTH:
+        while i2 <= SCREEN_HEIGHT:
+            screen.blit(background, (i, i2))
+            i2 += 500
+        i2 = background_y
+        i += 500
+    for enemy_object in enemyList:
+        enemy_object.draw_pause(screen)
+    for bullet_object in bullet.bulletList:
+        bullet_copy = pygame.transform.rotate(bullet_object.image, bullet_object.direction)
+        screen.blit(bullet_copy, (bullet_object.locationx, bullet_object.locationy))
