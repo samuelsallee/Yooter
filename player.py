@@ -15,7 +15,8 @@ class Player:
         self.overall_position_x: int = 0
         self.overall_position_y: int = 0
         self.player_center = (0,0)
-        self.hitbox = (0,0,0,0)
+        self.hitbox = ((0,0),(0,0),(0,0), (0,0))
+        self.hypo: float = 0
 
     def set_health(self, speed):
         self.speed = speed
@@ -40,5 +41,7 @@ class Player:
         self.image_copy = pygame.transform.rotate(self.playerImage, dy)
         self.player_center = (self.position_x-int(self.image_copy.get_width()/2), self.position_y-int(self.image_copy.get_height()/2))
         screen.blit(self.image_copy, self.player_center)
+
+
 
         

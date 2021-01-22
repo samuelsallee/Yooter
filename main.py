@@ -31,7 +31,7 @@ else:
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
 playerImage = pygame.image.load("really tiny soldier.png")
-player_one = player.Player(playerImage, SCREEN_WIDTH, SCREEN_HEIGHT)
+player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
 
 bullet_damage: int = 75
 bullet_speed: int = 10
@@ -80,14 +80,17 @@ def runPauseMenu():
     while pauseMenuOff == False:
         fontSize: int = 200
         pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
-        screen.blit(pauseFont.render("Pause", True, (0, 0, 0)), (SCREEN_WIDTH/2-fontSize, SCREEN_HEIGHT/2-fontSize/2))
+        screen.blit(pauseFont.render("Pause", True, (0, 0, 0)), (screen.get_width()/2-fontSize, screen.get_height()/2-fontSize/2))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pauseMenuOff = True
+            elif event.type == VIDEORESIZE:
+                player_one.position_x = screen.get_width() / 2
+                player_one.position_y = screen.get_height() / 2
         pygame.display.update()
         FramesPerSecond.tick(FPS)
-        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT)
+        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, screen.get_width(), screen.get_height())
 
 
 while running:
@@ -97,7 +100,7 @@ while running:
         now = float(round(time.time()))
         while i < extra_enemies:
             around = float(random.random() * 10)
-            Goblin = enemy(math.cos(around) * 500 + SCREEN_WIDTH / 2, math.sin(around) * 500 + SCREEN_HEIGHT / 2, 64,
+            Goblin = enemy(math.cos(around) * 500 + screen.get_width() / 2, math.sin(around) * 500 + screen.get_height() / 2, 64,
                            64, 2, 550,
                            100 + (now - start) / 10)
             enemyList.append(Goblin)
@@ -105,7 +108,7 @@ while running:
         extra_enemies += 1
 
     mouse = pygame.mouse.get_pos()
-    draw.draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, player_one)
+    draw.draw(mouse, screen.get_width(), screen.get_height(), screen, enemyList, background, xDelta, yDelta, background_x, background_y, player_one)
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -113,10 +116,8 @@ while running:
             pygame.quit()
 
         elif event.type == VIDEORESIZE:
-            SCREEN_WIDTH = screen.get_width()
-            SCREEN_HEIGHT = screen.get_height()
-            player_one.position_x = SCREEN_WIDTH / 2
-            player__one.position_y = SCREEN_HEIGHT / 2
+            player_one.position_x = screen.get_width() / 2
+            player_one.position_y = screen.get_height() / 2
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             radian = math.atan2((mouse[1] - player_one.position_y), (mouse[0] - player_one.position_x))
@@ -156,12 +157,12 @@ while running:
         pauseMenu = False
     if player_one.position_x < 0:
         player_one.position_x = 0
-    if player_one.position_x > SCREEN_WIDTH - playerImage.get_size()[0]:
-        player_one.position_x = SCREEN_WIDTH - playerImage.get_size()[0]
+    if player_one.position_x > screen.get_width() - playerImage.get_size()[0]:
+        player_one.position_x = screen.get_width() - playerImage.get_size()[0]
     if player_one.position_y < 0:
         player_one.position_y = 0
-    if player_one.position_y > SCREEN_HEIGHT - playerImage.get_size()[1]:
-        player_one.position_y = SCREEN_HEIGHT - playerImage.get_size()[1]
+    if player_one.position_y > screen.get_height() - playerImage.get_size()[1]:
+        player_one.position_y = screen.get_height() - playerImage.get_size()[1]
 
     background_x -= xDelta
     background_y -= yDelta
