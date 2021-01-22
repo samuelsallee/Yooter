@@ -33,7 +33,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 playerImage = pygame.image.load("really tiny soldier.png")
 player_one = player.Player(playerImage, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-bullet_damage: int = 100
+bullet_damage: int = 75
 bullet_speed: int = 10
 
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
@@ -42,8 +42,8 @@ score = 0
 
 
 def hit_logic():
-    for bullet_object in bullet.bulletList:
-        for enemy_object in enemyList:
+    for enemy_object in enemyList:
+        for bullet_object in bullet.bulletList:
             if enemy_object.x < bullet_object.locationx < enemy_object.x + enemy_object.width:
                 if enemy_object.y < bullet_object.locationy < enemy_object.y + enemy_object.width:
                     bullet_object.locationx = -6000
@@ -52,6 +52,7 @@ def hit_logic():
                         enemyList.remove(enemy_object)
                         global score #uses global varriable score inside the function
                         score = score+5 #increases score by 5 for every kill
+        #if player_one.position_x < enemy_object.x <
 
 
 font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
