@@ -87,7 +87,7 @@ def runPauseMenu():
                     pauseMenuOff = True
         pygame.display.update()
         FramesPerSecond.tick(FPS)
-        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT)
+        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT, player_one)
 
 
 while running:
@@ -105,7 +105,7 @@ while running:
         extra_enemies += 1
 
     mouse = pygame.mouse.get_pos()
-    draw.draw(mouse, player_one.position_x, player_one.position_y, player_one.playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y)
+    draw.draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, player_one)
 
     for event in pygame.event.get():
         if event.type == QUIT:

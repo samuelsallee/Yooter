@@ -35,5 +35,5 @@ class Player:
     def draw_player(self, angle, screen):
         rot_radian = math.atan2((angle[1] - self.position_y), (angle[0] - self.position_x))
         dy = -1 * math.degrees(rot_radian)
-        player_copy = pygame.transform.rotate(self.playerImage, dy)
-        screen.blit(player_copy, (x-int(player_copy.get_width()/2), y-int(player_copy.get_height()/2)))
+        self.image_copy = pygame.transform.rotate(self.playerImage, dy)
+        screen.blit(self.image_copy, (self.position_x-int(self.image_copy.get_width()/2), self.position_y-int(self.image_copy.get_height()/2)))

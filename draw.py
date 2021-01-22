@@ -2,11 +2,8 @@ from header import*
 import bullet
 import enemy
 
-def draw_player(angle, x, y, playerImage, screen):
-    rot_radian = math.atan2((angle[1] - y), (angle[0] - x))
-    dy = -1 * math.degrees(rot_radian)
-    player_copy = pygame.transform.rotate(playerImage, dy)
-    screen.blit(player_copy, (x-int(player_copy.get_width()/2), y-int(player_copy.get_height()/2)))
+def draw_player(angle, player_object, screen):
+    player_object.draw_player(angle, screen)
 
 
 def draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta):
@@ -32,7 +29,7 @@ def draw_enemy(enemyList, screen, player_x, player_y, xDelta, yDelta):
         enemy_object.draw(screen, player_x, player_y, xDelta, yDelta)
 
 
-def draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y):
+def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, player):
     i = background_x
     i2 = background_y
     while i <= SCREEN_WIDTH:
@@ -42,9 +39,9 @@ def draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, sc
         i2 = background_y
         i += 500
 
-    draw_player(mouse, player_x, player_y, playerImage, screen)
+    draw_player(mouse, player, screen)
     draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta)
-    draw_enemy(enemyList, screen, player_x, player_y, xDelta, yDelta)
+    draw_enemy(enemyList, screen, player.position_x, player.position_y, xDelta, yDelta)
 
 
 
