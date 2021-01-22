@@ -5,6 +5,7 @@ import draw
 import player
 
 testing = 1
+running: bool = True
 
 start = float(round(time.time()))
 SCREEN_WIDTH: int = 800
@@ -41,19 +42,24 @@ score = 0
 
 
 
-def hit_logic():
+def hit_logic(person1):
     for enemy_object in enemyList:
         for bullet_object in bullet.bulletList:
-            if enemy_object.x < bullet_object.locationx < enemy_object.x + enemy_object.width:
-                if enemy_object.y < bullet_object.locationy < enemy_object.y + enemy_object.width:
+            if enemy_object.box_x[0] < bullet_object.locationx < enemy_object.box_x[1]:
+                if enemy_object.box_y[0] < bullet_object.locationy < enemy_object.box_y[1]:
                     bullet_object.locationx = -6000
                     enemy_object.health -= bullet_object.damage
                     if enemy_object.health < 1:
                         enemyList.remove(enemy_object)
                         global score #uses global varriable score inside the function
                         score = score+5 #increases score by 5 for every kill
-        #if player_one.position_x < enemy_object.x <
-
+        player_to_enemy_distance_tuple = (person1.player_center[0] - enemy_object.center[0], person1.player_center[1] - enemy_object.center[1])
+        p_to_e_distance = player_to_enemy_distance_tuple[0]*player_to_enemy_distance_tuple[0] + player_to_enemy_distance_tuple[1] * player_to_enemy_distance_tuple[1]
+        p_to_e_distance = math.sqrt(p_to_e_distance)
+        if testing == 0:
+            if p_to_e_distance < 15:
+                return False
+    return True
 
 font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
 
@@ -62,7 +68,6 @@ background_y: int = -500
 xDelta: float = 0
 yDelta: float = 0
 extra_enemies: int = 0
-running: bool = True
 pauseMenu: bool = False
 
 #background = pygame.image.load("backgrounddetailed1_flower.png")
@@ -170,7 +175,7 @@ while running:
         background_x = -500
     if background_y >= 0:
         background_y = -500
-    hit_logic()
+    running = hit_logic(player_one)
     scoretxt = font.render("Score: " + str(score),True,(0,0,0))
     screen.blit(scoretxt,(0,0))
     pygame.display.update()
