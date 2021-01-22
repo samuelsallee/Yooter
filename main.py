@@ -75,7 +75,7 @@ def setBackground():
 def runPauseMenu():
     pauseMenuOff: bool = False
     while pauseMenuOff == False:
-        fontSize: int = 200
+        fontSize: int = 160
         pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
         screen.blit(pauseFont.render("Pause", True, (0, 0, 0)), (SCREEN_WIDTH/2-fontSize, SCREEN_HEIGHT/2-fontSize/2))
         for event in pygame.event.get():
