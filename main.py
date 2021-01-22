@@ -174,5 +174,3 @@ while running:
     screen.blit(scoretxt,(0,0))
     pygame.display.update()
     FramesPerSecond.tick(FPS)
-
-        
