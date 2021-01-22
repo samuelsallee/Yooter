@@ -42,8 +42,8 @@ score = 0
 
 
 def hit_logic():
-    for bullet_object in bullet.bulletList:
-        for enemy_object in enemyList:
+    for enemy_object in enemyList:
+        for bullet_object in bullet.bulletList:
             if enemy_object.x < bullet_object.locationx < enemy_object.x + enemy_object.width:
                 if enemy_object.y < bullet_object.locationy < enemy_object.y + enemy_object.width:
                     bullet_object.locationx = -6000
@@ -52,6 +52,7 @@ def hit_logic():
                         enemyList.remove(enemy_object)
                         global score #uses global varriable score inside the function
                         score = score+5 #increases score by 5 for every kill
+        #if player_one.position_x < enemy_object.x <
 
 
 font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
@@ -77,7 +78,7 @@ def setBackground():
 def runPauseMenu():
     pauseMenuOff: bool = False
     while pauseMenuOff == False:
-        fontSize: int = 160
+        fontSize: int = 200
         pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
         screen.blit(pauseFont.render("Pause", True, (0, 0, 0)), (SCREEN_WIDTH/2-fontSize, SCREEN_HEIGHT/2-fontSize/2))
         for event in pygame.event.get():
@@ -173,5 +174,3 @@ while running:
     screen.blit(scoretxt,(0,0))
     pygame.display.update()
     FramesPerSecond.tick(FPS)
-
-        
