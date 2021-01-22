@@ -4,7 +4,7 @@ from enemy import enemy
 import draw
 import player
 
-testing = 1
+testing = 0
 running: bool = True
 
 start = float(round(time.time()))
@@ -82,9 +82,9 @@ def setBackground():
 
 def runPauseMenu():
     pauseMenuOff: bool = False
+    fontSize: int = 200
+    pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
     while pauseMenuOff == False:
-        fontSize: int = 200
-        pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
         screen.blit(pauseFont.render("Pause", True, (0, 0, 0)), (screen.get_width()/2-fontSize, screen.get_height()/2-fontSize/2))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -99,6 +99,7 @@ def runPauseMenu():
 
 
 while running:
+
 
     if len(enemyList) == 0:
         i: int = 0
@@ -180,3 +181,33 @@ while running:
     screen.blit(scoretxt,(0,0))
     pygame.display.update()
     FramesPerSecond.tick(FPS)
+
+###############################################################################
+#THIS IS WHERE THE GAME OVER LOOP STARTS
+###############################################################################
+
+game_over: bool = True
+fontSize: int = 100
+fontSize2: int = 50
+fontSize3: int = 30
+gameOverFont = pygame.font.SysFont('comicsans', fontSize, True, True)
+gameOverFont2 = pygame.font.SysFont('comicsans', fontSize2, True, True)
+gameOverFont3 = pygame.font.SysFont('comicsans', fontSize3, True, True)
+
+while game_over:
+
+    screen.fill([255, 0, 0])
+    mouse = pygame.mouse.get_pos()
+    screen.blit(gameOverFont.render("GAME OVER NERD", True, (0, 0, 0)), (50, 100))
+    screen.blit(gameOverFont2.render("YOU SUCK SHIT", True, (0, 0, 0)), (250, 120 + fontSize))
+    screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 200 + fontSize))
+    screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 250 + fontSize))
+    screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 250 + fontSize))
+    pygame.display.update()
+    FramesPerSecond.tick(FPS)
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            game_over = False
+            pygame.quit()
+
