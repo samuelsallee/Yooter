@@ -198,11 +198,15 @@ while game_over:
 
     screen.fill([255, 0, 0])
     mouse = pygame.mouse.get_pos()
+
+    pygame.draw.rect(screen, (125, 125, 125), (263, 343, 55, 30))
+    pygame.draw.rect(screen, (125, 125, 125), (487, 343, 55, 30))
     screen.blit(gameOverFont.render("GAME OVER NERD", True, (0, 0, 0)), (50, 100))
-    screen.blit(gameOverFont2.render("YOU SUCK SHIT", True, (0, 0, 0)), (250, 120 + fontSize))
-    screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 200 + fontSize))
-    screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 250 + fontSize))
-    screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 250 + fontSize))
+    screen.blit(gameOverFont2.render("YOU SUCK SHIT", True, (0, 0, 0)), (250, 220))
+    screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 300))
+    screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 350))
+    screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 350))
+
     pygame.display.update()
     FramesPerSecond.tick(FPS)
 
