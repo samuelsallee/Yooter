@@ -29,10 +29,7 @@ def draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta):
 
 def draw_enemy(enemyList, screen, player_x, player_y, xDelta, yDelta):
     for enemy_object in enemyList:
-        if enemy_object.health < 1:
-            enemyList.remove(enemy_object)
-        else:
-            enemy_object.draw(screen, player_x, player_y, xDelta, yDelta)
+        enemy_object.draw(screen, player_x, player_y, xDelta, yDelta)
 
 
 def draw(mouse, player_x, player_y, playerImage, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y):

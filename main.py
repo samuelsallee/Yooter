@@ -48,8 +48,10 @@ def hit_logic():
                 if enemy_object.y < bullet_object.locationy < enemy_object.y + enemy_object.width:
                     bullet_object.locationx = -6000
                     enemy_object.health -= bullet_object.damage
-                    global score #uses global varriable score inside the function
-                    score = score+5 #increases score by 5 for every hit
+                    if enemy_object.health < 1:
+                        enemyList.remove(enemy_object)
+                        global score #uses global varriable score inside the function
+                        score = score+5 #increases score by 5 for every kill
 
 
 font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
@@ -63,7 +65,7 @@ running: bool = True
 pauseMenu: bool = False
 
 #background = pygame.image.load("backgrounddetailed1_flower.png")
-background = pygame.image.load("brickbackground.png")
+background = pygame.image.load("backgrounddetailed1.png")
 
 def setBackground():
     randNum: int = int(random.random()*10)
