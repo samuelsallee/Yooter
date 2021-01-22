@@ -14,6 +14,8 @@ class Player:
         self.speed: int = 5
         self.overall_position_x: int = 0
         self.overall_position_y: int = 0
+        self.player_center = (0,0)
+        self.hitbox = (0,0,0,0)
 
     def set_health(self, speed):
         self.speed = speed
@@ -36,4 +38,7 @@ class Player:
         rot_radian = math.atan2((angle[1] - self.position_y), (angle[0] - self.position_x))
         dy = -1 * math.degrees(rot_radian)
         self.image_copy = pygame.transform.rotate(self.playerImage, dy)
-        screen.blit(self.image_copy, (self.position_x-int(self.image_copy.get_width()/2), self.position_y-int(self.image_copy.get_height()/2)))
+        self.player_center = (self.position_x-int(self.image_copy.get_width()/2), self.position_y-int(self.image_copy.get_height()/2))
+        screen.blit(self.image_copy, self.player_center)
+
+        

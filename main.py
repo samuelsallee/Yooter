@@ -87,7 +87,7 @@ def runPauseMenu():
                     pauseMenuOff = True
         pygame.display.update()
         FramesPerSecond.tick(FPS)
-        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT, player_one)
+        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
 while running:
