@@ -38,11 +38,10 @@ def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDel
             i2 += 500
         i2 = background_y
         i += 500
-
     draw_player(mouse, player, screen)
     draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta)
     draw_enemy(enemyList, screen, player.position_x, player.position_y, xDelta, yDelta)
-    return (i, i2)
+    
 
 
 
