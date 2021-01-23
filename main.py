@@ -20,7 +20,7 @@ logo = pygame.image.load("8bitlink.png")
 pygame.display.set_icon(logo)
 pygame.display.set_caption("# Learn to Code")
 
-if testing == 0:
+if 0:
     pygame.mixer.music.load('bgmusic.wav')
     pygame.mixer.music.play(-1)
     Gunfire = pygame.mixer.Sound('gunfire.wav')
@@ -48,7 +48,7 @@ def hit_logic(person1):
                     enemy_object.health -= bullet_object.damage
                     if enemy_object.health < 1:
                         global money
-                        money += enemy_object.health_total
+                        money += enemy_object.health_total/10
                         enemyList.remove(enemy_object)
                         global score  # uses global varriable score inside the function
                         score = score + 5  # increases score by 5 for every kill
@@ -71,7 +71,7 @@ yDelta: float = 0
 extra_enemies: int = 0
 pauseMenu: bool = False
 wave: int = -1
-money = 0
+money: float = 0
 
 # background = pygame.image.load("backgrounddetailed1_flower.png")
 background = pygame.image.load("backgrounddetailed1.png")
@@ -113,8 +113,8 @@ while not game_quit:
 
         if len(enemyList) == 0:
             wave += 1
-            if wave < 31:
-                multiplier = wave * 50
+            if wave < 61:
+                multiplier = wave * 25
             i: int = 0
             now = float(round(time.time()))
             health = 100 + (now - start) / 2
@@ -204,7 +204,7 @@ while not game_quit:
         running = hit_logic(player_one)
         score_text = font.render("Score: " + str(score), True, (0, 0, 0))
         wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
-        money_text = font.render("Money: $" + str(money), True, (185, 127, 0))
+        money_text = font.render("Money: $" + str("%.2f" % money), True, (185, 127, 0))
         screen.blit(score_text, (2, 2))
         screen.blit(wave_text, (screen.get_width() - 130, 2))
         screen.blit(money_text, (2, 32))
