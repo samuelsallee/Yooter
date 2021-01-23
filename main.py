@@ -113,15 +113,15 @@ while not game_quit:
 
         if len(enemyList) == 0:
             wave += 1
-            if wave < 61:
+            if wave < 57:
                 multiplier = wave * 25
             i: int = 0
             now = float(round(time.time()))
             health = 100 + (now - start) / 2
             while i < extra_enemies:
                 around = float(random.random() * 10)
-                Goblin = enemy(math.cos(around) * (multiplier * random.random() * (1 + (now - start) / 10) + 500) + screen.get_width() / 2,
-                               math.sin(around) * (multiplier * random.random() * (1 + (now - start) / 10) + 500) + screen.get_height() / 2,
+                Goblin = enemy(math.cos(around) * (multiplier * random.random() * (1 + (now - start) / 10) + 700) + screen.get_width() / 2,
+                               math.sin(around) * (multiplier * random.random() * (1 + (now - start) / 10) + 700) + screen.get_height() / 2,
                                64,
                                64,
                                2,
@@ -197,6 +197,8 @@ while not game_quit:
 
         background_x -= xDelta
         background_y -= yDelta
+        player_one.overall_position_x += xDelta
+        player_one.overall_position_y -= yDelta
         if background_x >= 0:
             background_x = -500
         if background_y >= 0:
@@ -204,10 +206,12 @@ while not game_quit:
         running = hit_logic(player_one)
         score_text = font.render("Score: " + str(score), True, (0, 0, 0))
         wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
-        money_text = font.render("Money: $" + str("%.2f" % money), True, (185, 127, 0))
+        money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
+        overall_position_text = font.render(str(player_one.overall_position_x) + ", " + str(player_one.overall_position_y), True, (0, 0, 0))
         screen.blit(score_text, (2, 2))
         screen.blit(wave_text, (screen.get_width() - 130, 2))
         screen.blit(money_text, (2, 32))
+        screen.blit(overall_position_text, (screen.get_width()/2 - 50, 2))
         pygame.display.update()
         FramesPerSecond.tick(FPS)
 
