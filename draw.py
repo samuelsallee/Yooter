@@ -1,6 +1,7 @@
 from header import*
 import bullet
 import enemy
+import menu
 
 def draw_player(angle, player_object, screen):
     player_object.draw_player(angle, screen)
@@ -59,3 +60,4 @@ def draw_pause_menu(screen, enemyList, background_x, background_y, background, S
     for bullet_object in bullet.bulletList:
         bullet_copy = pygame.transform.rotate(bullet_object.image, bullet_object.direction)
         screen.blit(bullet_copy, (bullet_object.locationx, bullet_object.locationy))
+
