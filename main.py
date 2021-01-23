@@ -4,6 +4,8 @@ from enemy import enemy
 import draw
 import player
 
+#trying to use github with pycharm
+
 testing = 0
 running: bool = True
 
@@ -41,7 +43,6 @@ Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
 score = 0
 
 
-
 def hit_logic(person1):
     for enemy_object in enemyList:
         for bullet_object in bullet.bulletList:
@@ -60,6 +61,7 @@ def hit_logic(person1):
             if p_to_e_distance < 15:
                 return False
     return True
+
 
 font = pygame.font.SysFont('comicsans', 30, True, True) # Initializes Font
 
