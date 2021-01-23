@@ -55,9 +55,23 @@ def draw_pause_menu(screen, enemyList, background_x, background_y, background, S
             i2 += 500
         i2 = background_y
         i += 500
+    #menu.loopMenu(screen, enemyList, background_x, background_y, background)
     for enemy_object in enemyList:
         enemy_object.draw_pause(screen)
     for bullet_object in bullet.bulletList:
         bullet_copy = pygame.transform.rotate(bullet_object.image, bullet_object.direction)
         screen.blit(bullet_copy, (bullet_object.locationx, bullet_object.locationy))
 
+<<<<<<< HEAD
+=======
+
+def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3):
+    screen.fill([255, 0, 0])
+    pygame.draw.rect(screen, (125, 125, 125), yes_tuple)
+    pygame.draw.rect(screen, (125, 125, 125), no_tuple)
+    screen.blit(gameOverFont.render("GAME OVER NERD", True, (0, 0, 0)), (50, 100))
+    screen.blit(gameOverFont2.render("YOU SUCK SHIT", True, (0, 0, 0)), (250, 220))
+    screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 300))
+    screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 350))
+    screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 350))
+>>>>>>> 2bcdfd3b6c90466e09b8379f97136b7d0aed835a
