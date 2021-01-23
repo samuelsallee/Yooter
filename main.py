@@ -27,12 +27,6 @@ else:
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
-playerImage = pygame.transform.scale(pygame.image.load("survivor-idle_rifle_0.png"), (57, 40))
-player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
-
-bullet_damage: int = 75
-bullet_speed: int = 10
-
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
 
 def hit_logic(person1):
@@ -95,6 +89,8 @@ def runPauseMenu():
 game_quit: bool = False
 
 while not game_quit:
+
+    #initializing in game variables
     start = float(round(time.time()))
     running: bool = True
     background_x: int = -500
@@ -105,7 +101,12 @@ while not game_quit:
     pauseMenu: bool = False
     wave: int = -1
     money: float = 0
-    score = 0
+    score: int = 0
+    playerImage = pygame.transform.scale(pygame.image.load("survivor-idle_rifle_0.png"), (57, 40))
+    player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
+    bullet_damage: int = 75
+    bullet_speed: int = 10
+
     while running:
 
         if len(enemyList) == 0:
