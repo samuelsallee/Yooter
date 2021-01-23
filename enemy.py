@@ -18,6 +18,7 @@ class enemy:
         self.velocity = vel
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
         self.health = health
+        self.health_total = health
         self.center = (self.x - self.width/2, self.y - self.height/2)
 
     def draw_pause(self, screen):

@@ -47,16 +47,17 @@ def hit_logic(person1):
                     bullet_object.locationx = -6000
                     enemy_object.health -= bullet_object.damage
                     if enemy_object.health < 1:
+                        global money
+                        money += enemy_object.health_total
                         enemyList.remove(enemy_object)
                         global score  # uses global varriable score inside the function
                         score = score + 5  # increases score by 5 for every kill
-        player_to_enemy_distance_tuple = (
-        person1.player_center[0] - enemy_object.center[0], person1.player_center[1] - enemy_object.center[1])
+        player_to_enemy_distance_tuple = (person1.player_center[0] - enemy_object.center[0], person1.player_center[1] - enemy_object.center[1])
         p_to_e_distance = player_to_enemy_distance_tuple[0] * player_to_enemy_distance_tuple[0] + \
-                          player_to_enemy_distance_tuple[1] * player_to_enemy_distance_tuple[1]
+            player_to_enemy_distance_tuple[1] * player_to_enemy_distance_tuple[1]
         p_to_e_distance = math.sqrt(p_to_e_distance)
         if testing == 0:
-            if p_to_e_distance < 15:
+            if p_to_e_distance < 25:
                 return False
     return True
 
@@ -69,6 +70,8 @@ xDelta: float = 0
 yDelta: float = 0
 extra_enemies: int = 0
 pauseMenu: bool = False
+wave: int = -1
+money = 0
 
 # background = pygame.image.load("backgrounddetailed1_flower.png")
 background = pygame.image.load("backgrounddetailed1.png")
@@ -109,14 +112,21 @@ while not game_quit:
     while running:
 
         if len(enemyList) == 0:
+            wave += 1
+            if wave < 31:
+                multiplier = wave * 50
             i: int = 0
             now = float(round(time.time()))
+            health = 100 + (now - start) / 2
             while i < extra_enemies:
                 around = float(random.random() * 10)
-                Goblin = enemy(math.cos(around) * 500 + screen.get_width() / 2,
-                               math.sin(around) * 500 + screen.get_height() / 2, 64,
-                               64, 2, 550,
-                               100 + (now - start) / 10)
+                Goblin = enemy(math.cos(around) * (multiplier * random.random() * (1 + (now - start) / 10) + 500) + screen.get_width() / 2,
+                               math.sin(around) * (multiplier * random.random() * (1 + (now - start) / 10) + 500) + screen.get_height() / 2,
+                               64,
+                               64,
+                               2,
+                               550,
+                               health)
                 enemyList.append(Goblin)
                 i += 1
             extra_enemies += 1
@@ -148,7 +158,7 @@ while not game_quit:
                                                buldeltax,
                                                buldeltay)
                     bullet.bulletList.append(new_bullet)
-                    Gunfire.play()
+                    #Gunfire.play()
 
             if event.type == pygame.KEYDOWN:
 
@@ -192,8 +202,12 @@ while not game_quit:
         if background_y >= 0:
             background_y = -500
         running = hit_logic(player_one)
-        scoretxt = font.render("Score: " + str(score), True, (0, 0, 0))
-        screen.blit(scoretxt, (0, 0))
+        score_text = font.render("Score: " + str(score), True, (0, 0, 0))
+        wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
+        money_text = font.render("Money: $" + str(money), True, (185, 127, 0))
+        screen.blit(score_text, (2, 2))
+        screen.blit(wave_text, (screen.get_width() - 130, 2))
+        screen.blit(money_text, (2, 32))
         pygame.display.update()
         FramesPerSecond.tick(FPS)
 
@@ -231,7 +245,8 @@ while not game_quit:
                     if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
                         if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
                             game_over = False
-                            print("a")
+                            score = 0
+                            wave = -1
                     elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
                         if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
                             game_over = False

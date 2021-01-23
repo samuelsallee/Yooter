@@ -55,7 +55,7 @@ def draw_pause_menu(screen, enemyList, background_x, background_y, background, S
             i2 += 500
         i2 = background_y
         i += 500
-    menu.loopMenu(screen, enemyList, background_x, background_y, background)
+    #menu.loopMenu(screen, enemyList, background_x, background_y, background)
     for enemy_object in enemyList:
         enemy_object.draw_pause(screen)
     for bullet_object in bullet.bulletList:
