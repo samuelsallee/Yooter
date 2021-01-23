@@ -21,7 +21,7 @@ class enemy:
         self.center = (self.x - self.width/2, self.y - self.height/2)
 
     def draw_pause(self, screen):
-        screen.blit(self.static, (self.x, self.y))
+        screen.blit(self.static, self.center)
         
     def draw(self, screen, player_x, player_y, xDelta, yDelta):
         self.move(player_x, player_y, xDelta, yDelta)
