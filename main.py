@@ -5,8 +5,6 @@ import draw
 import player
 
 testing = 0
-
-start = float(round(time.time()))
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
 FPS: int = 60
@@ -36,8 +34,6 @@ bullet_damage: int = 75
 bullet_speed: int = 10
 
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
-score = 0
-
 
 def hit_logic(person1):
     for enemy_object in enemyList:
@@ -63,15 +59,6 @@ def hit_logic(person1):
 
 
 font = pygame.font.SysFont('comicsans', 30, True, True)  # Initializes Font
-
-background_x: int = -500
-background_y: int = -500
-xDelta: float = 0
-yDelta: float = 0
-extra_enemies: int = 0
-pauseMenu: bool = False
-wave: int = -1
-money: float = 0
 
 # background = pygame.image.load("backgrounddetailed1_flower.png")
 background = pygame.image.load("backgrounddetailed1.png")
@@ -108,7 +95,17 @@ def runPauseMenu():
 game_quit: bool = False
 
 while not game_quit:
+    start = float(round(time.time()))
     running: bool = True
+    background_x: int = -500
+    background_y: int = -500
+    xDelta: float = 0
+    yDelta: float = 0
+    extra_enemies: int = 0
+    pauseMenu: bool = False
+    wave: int = -1
+    money: float = 0
+    score = 0
     while running:
 
         if len(enemyList) == 0:
@@ -249,9 +246,6 @@ while not game_quit:
                     if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
                         if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
                             game_over = False
-                            score = 0
-                            wave = -1
-                            money = 0
                             player_one.overall_position_x = 0
                             player_one.overall_position_y = 0
                     elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
