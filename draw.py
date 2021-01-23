@@ -62,8 +62,6 @@ def draw_pause_menu(screen, enemyList, background_x, background_y, background, S
         bullet_copy = pygame.transform.rotate(bullet_object.image, bullet_object.direction)
         screen.blit(bullet_copy, (bullet_object.locationx, bullet_object.locationy))
 
-<<<<<<< HEAD
-=======
 
 def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3):
     screen.fill([255, 0, 0])
@@ -74,4 +72,3 @@ def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFon
     screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 300))
     screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 350))
     screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 350))
->>>>>>> 2bcdfd3b6c90466e09b8379f97136b7d0aed835a
