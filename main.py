@@ -29,7 +29,7 @@ else:
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
-playerImage = pygame.image.load("really tiny soldier.png")
+playerImage = pygame.transform.scale(pygame.image.load("survivor-idle_rifle_0.png"), (57, 40))
 player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
 
 bullet_damage: int = 75
