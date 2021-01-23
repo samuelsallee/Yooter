@@ -30,8 +30,8 @@ class enemy:
             self.center =  (self.x - self.width/2, self.y-self.height/2)
             screen.blit(self.static, self.center)
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
-        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, 50, 10))
-        pygame.draw.rect(screen, (0, 128, 0), (self.x, self.y, self.health/2, 10))
+        pygame.draw.rect(screen, (255, 0, 0), (self.x - self.width/2, self.y - self.height/2, 50, 10))
+        pygame.draw.rect(screen, (0, 128, 0), (self.x - self.width/2, self.y - self.height/2, 50 * self.health/self.health_total, 10))
         #pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2)  # drawing hitbox right now
 
     def move(self, player_x, player_y, xDelta, yDelta):

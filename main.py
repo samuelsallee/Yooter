@@ -251,6 +251,9 @@ while not game_quit:
                             game_over = False
                             score = 0
                             wave = -1
+                            money = 0
+                            player_one.overall_position_x = 0
+                            player_one.overall_position_y = 0
                     elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
                         if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
                             game_over = False
