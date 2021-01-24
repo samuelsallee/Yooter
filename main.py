@@ -106,9 +106,14 @@ while not game_quit:
     player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
     bullet_damage: int = 75
     bullet_speed: int = 10
+    number_of_frames_shown: int = 0
+
 
     while running:
-
+        number_of_frames_shown += 1
+        if number_of_frames_shown % 6 == 0:
+            player_one.sprite_selector += 1
+            player_one.sprite_to_show_while_idle()
         if len(enemyList) == 0:
             wave += 1
             if wave < 57:
@@ -230,11 +235,20 @@ while not game_quit:
 
     yes_tuple = (263, 343, 55, 30)
     no_tuple = (487, 343, 55, 30)
-
+    grey = (90, 90, 90)
+    white = (255, 255, 255)
     while game_over:
 
         mouse = pygame.mouse.get_pos()
-        draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3)
+
+        if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
+            if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
+                draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, white, grey)
+        elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
+            if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
+                draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, grey, white)
+        else:
+            draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, grey, grey)
         pygame.display.update()
         FramesPerSecond.tick(FPS)
 

@@ -63,10 +63,10 @@ def draw_pause_menu(screen, enemyList, background_x, background_y, background, S
         screen.blit(bullet_copy, (bullet_object.locationx, bullet_object.locationy))
 
 
-def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3):
+def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, color1, color2):
     screen.fill([255, 0, 0])
-    pygame.draw.rect(screen, (125, 125, 125), yes_tuple)
-    pygame.draw.rect(screen, (125, 125, 125), no_tuple)
+    pygame.draw.rect(screen, color1, yes_tuple)
+    pygame.draw.rect(screen, color2, no_tuple)
     screen.blit(gameOverFont.render("GAME OVER NERD", True, (0, 0, 0)), (50, 100))
     screen.blit(gameOverFont2.render("YOU SUCK SHIT", True, (0, 0, 0)), (250, 220))
     screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 300))
