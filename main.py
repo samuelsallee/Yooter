@@ -3,6 +3,7 @@ import bullet
 from enemy import enemy
 import draw
 import player
+import purchasable
 
 testing = 0
 SCREEN_WIDTH: int = 800
@@ -74,6 +75,11 @@ def runPauseMenu():
     money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
     while pauseMenuOff == False:
         mouse_position = pygame.mouse.get_pos()
+        mouse_x = int(mouse_position[0] / 25)
+        mouse_x *= 25
+        mouse_y = int(mouse_position[1] / 25)
+        mouse_y *= 25
+        screen.blit(purchasable.wooden_wall_1, (mouse_x, mouse_y))
         # screen.blit(pauseFont.render("Pause", True, (0, 0, 0)),
                     # (screen.get_width() / 2 - fontSize, screen.get_height() / 2 - fontSize / 2))
 
@@ -120,8 +126,8 @@ while not game_quit:
         number_of_frames_shown += 1
         if len(enemyList) == 0:
             wave += 1
-            if wave < 57:
-                multiplier = wave * 25
+            if wave < 60:
+                multiplier = wave * 10
             i: int = 0
             now = float(round(time.time()))
             health = 100 + (now - start) / 2
