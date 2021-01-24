@@ -29,6 +29,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
 
+
 def hit_logic(person1):
     for enemy_object in enemyList:
         for bullet_object in bullet.bulletList:
@@ -73,8 +74,8 @@ def runPauseMenu():
     while pauseMenuOff == False:
         screen.blit(pauseFont.render("Pause", True, (0, 0, 0)),
                     (screen.get_width() / 2 - fontSize, screen.get_height() / 2 - fontSize / 2))
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
+        for py_event in pygame.event.get():
+            if py_event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pauseMenuOff = True
             elif event.type == VIDEORESIZE:
@@ -90,7 +91,7 @@ game_quit: bool = False
 
 while not game_quit:
 
-    #initializing in game variables
+    # initializing in game variables
     start = float(round(time.time()))
     running: bool = True
     background_x: int = -500
@@ -108,12 +109,8 @@ while not game_quit:
     bullet_speed: int = 10
     number_of_frames_shown: int = 0
 
-
     while running:
         number_of_frames_shown += 1
-        if number_of_frames_shown % 6 == 0:
-            player_one.sprite_selector += 1
-            player_one.sprite_to_show_while_idle()
         if len(enemyList) == 0:
             wave += 1
             if wave < 57:
@@ -161,7 +158,7 @@ while not game_quit:
                                                buldeltax,
                                                buldeltay)
                     bullet.bulletList.append(new_bullet)
-                    #Gunfire.play()
+                    # Gunfire.play()
 
             if event.type == pygame.KEYDOWN:
 
@@ -189,6 +186,20 @@ while not game_quit:
         if pauseMenu:
             runPauseMenu()
             pauseMenu = False
+#########################################################
+#         Handles idle and walking animation
+        if xDelta == 0 and yDelta == 0:
+            player_one.walking_counter = 0
+            if number_of_frames_shown % 3 == 0:
+                player_one.idle_counter += 1
+                player_one.sprite_to_show_while_idle()
+
+        else:
+            player_one.idle_counter = 0
+            if number_of_frames_shown % 3 == 0:
+                player_one.walking_counter += 1
+                player_one.sprite_to_show_while_walking()
+#########################################################
         if player_one.position_x < 0:
             player_one.position_x = 0
         if player_one.position_x > screen.get_width() - playerImage.get_size()[0]:
