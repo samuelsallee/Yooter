@@ -71,10 +71,17 @@ def runPauseMenu():
     pauseMenuOff: bool = False
     fontSize: int = 200
     pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
+    money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
     while pauseMenuOff == False:
-        screen.blit(pauseFont.render("Pause", True, (0, 0, 0)),
-                    (screen.get_width() / 2 - fontSize, screen.get_height() / 2 - fontSize / 2))
+        mouse_position = pygame.mouse.get_pos()
+        # screen.blit(pauseFont.render("Pause", True, (0, 0, 0)),
+                    # (screen.get_width() / 2 - fontSize, screen.get_height() / 2 - fontSize / 2))
+
         for py_event in pygame.event.get():
+            if py_event.type == QUIT:
+                running = False
+                game_quit = True
+                pygame.quit()
             if py_event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pauseMenuOff = True
@@ -199,7 +206,8 @@ while not game_quit:
             if number_of_frames_shown % 3 == 0:
                 player_one.walking_counter += 1
                 player_one.sprite_to_show_while_walking()
-#########################################################
+#############################################################################################
+#       Not Currently used. If there are limits width and height then this will come into play
         if player_one.position_x < 0:
             player_one.position_x = 0
         if player_one.position_x > screen.get_width() - playerImage.get_size()[0]:
@@ -208,6 +216,7 @@ while not game_quit:
             player_one.position_y = 0
         if player_one.position_y > screen.get_height() - playerImage.get_size()[1]:
             player_one.position_y = screen.get_height() - playerImage.get_size()[1]
+##############################################################################################
 
         background_x -= xDelta
         background_y -= yDelta
@@ -217,15 +226,11 @@ while not game_quit:
             background_x = -500
         if background_y >= 0:
             background_y = -500
+
         running = hit_logic(player_one)
-        score_text = font.render("Score: " + str(score), True, (0, 0, 0))
-        wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
-        money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
-        overall_position_text = font.render(str(player_one.overall_position_x) + ", " + str(player_one.overall_position_y), True, (0, 0, 0))
-        screen.blit(score_text, (2, 2))
-        screen.blit(wave_text, (screen.get_width() - 130, 2))
-        screen.blit(money_text, (2, 32))
-        screen.blit(overall_position_text, (screen.get_width()/2 - 50, 2))
+
+        draw.draw_useful_information(screen, font, score, wave, money, player_one)
+
         pygame.display.update()
         FramesPerSecond.tick(FPS)
 

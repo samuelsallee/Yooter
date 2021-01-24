@@ -72,3 +72,16 @@ def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFon
     screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 300))
     screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 350))
     screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 350))
+
+
+def draw_useful_information(screen, font, score, wave, money, player_one):
+    score_text = font.render("Score: " + str(score), True, (0, 0, 0))
+    wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
+    money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
+    overall_position_text = font.render(str(player_one.overall_position_x) + ", " + str(player_one.overall_position_y),
+                                        True, (0, 0, 0))
+    screen.blit(score_text, (2, 2))
+    screen.blit(wave_text, (screen.get_width() - 130, 2))
+    screen.blit(money_text, (2, 32))
+    screen.blit(overall_position_text, (screen.get_width() / 2 - 50, 2))
+

@@ -4,7 +4,7 @@ from header import*
 
 class Bullet:
 
-    image = pygame.transform.scale(pygame.image.load("Transparent bullet.png"),(30,20))
+    image = pygame.transform.scale(pygame.image.load("Transparent bullet.png"), (30, 20))
 
     def __init__(self, dam, direct, spd, locx, locy, chx, chy):
         self.damage = dam
