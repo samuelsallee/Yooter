@@ -191,3 +191,4 @@ class Player:
 
     def sprite_to_show_while_walking(self):
         self.playerImage = self.walking[self.walking_counter % 20]
+#
