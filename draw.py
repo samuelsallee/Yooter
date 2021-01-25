@@ -30,15 +30,15 @@ def draw_enemy(enemyList, screen, player_x, player_y, xDelta, yDelta):
         enemy_object.draw(screen, player_x, player_y, xDelta, yDelta)
 
 
-def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, player):
+def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, player):
     i = background_x
     i2 = background_y
     while i <= SCREEN_WIDTH:
         while i2 <= SCREEN_HEIGHT:
             screen.blit(background, (i, i2))
-            i2 += 500
+            i2 += BACKGROUND_HEIGHT
         i2 = background_y
-        i += 500
+        i += BACKGROUND_WIDTH
     draw_player(mouse, player, screen)
     draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta)
     draw_enemy(enemyList, screen, player.position_x, player.position_y, xDelta, yDelta)
@@ -46,15 +46,15 @@ def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDel
 
 
 
-def draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT):
+def draw_pause_menu(screen, enemyList, background_x, background_y, background, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT):
     i = background_x
     i2 = background_y
     while i <= SCREEN_WIDTH:
         while i2 <= SCREEN_HEIGHT:
             screen.blit(background, (i, i2))
-            i2 += 500
+            i2 += BACKGROUND_HEIGHT
         i2 = background_y
-        i += 500
+        i += BACKGROUND_WIDTH
     #menu.loopMenu(screen, enemyList, background_x, background_y, background)
     for enemy_object in enemyList:
         enemy_object.draw_pause(screen)
@@ -63,12 +63,25 @@ def draw_pause_menu(screen, enemyList, background_x, background_y, background, S
         screen.blit(bullet_copy, (bullet_object.locationx, bullet_object.locationy))
 
 
-def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3):
+def draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, color1, color2):
     screen.fill([255, 0, 0])
-    pygame.draw.rect(screen, (125, 125, 125), yes_tuple)
-    pygame.draw.rect(screen, (125, 125, 125), no_tuple)
+    pygame.draw.rect(screen, color1, yes_tuple)
+    pygame.draw.rect(screen, color2, no_tuple)
     screen.blit(gameOverFont.render("GAME OVER NERD", True, (0, 0, 0)), (50, 100))
     screen.blit(gameOverFont2.render("YOU SUCK SHIT", True, (0, 0, 0)), (250, 220))
     screen.blit(gameOverFont3.render("Would you like to try again?", True, (0, 0, 0)), (240, 300))
     screen.blit(gameOverFont3.render("Yes", True, (0, 0, 0)), (270, 350))
     screen.blit(gameOverFont3.render("No", True, (0, 0, 0)), (500, 350))
+
+
+def draw_useful_information(screen, font, score, wave, money, player_one):
+    score_text = font.render("Score: " + str(score), True, (0, 0, 0))
+    wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
+    money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
+    overall_position_text = font.render(str(player_one.overall_position_x) + ", " + str(player_one.overall_position_y),
+                                        True, (0, 0, 0))
+    screen.blit(score_text, (2, 2))
+    screen.blit(wave_text, (screen.get_width() - 130, 2))
+    screen.blit(money_text, (2, 32))
+    screen.blit(overall_position_text, (screen.get_width() / 2 - 50, 2))
+

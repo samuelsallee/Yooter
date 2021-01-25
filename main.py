@@ -3,12 +3,13 @@ import bullet
 from enemy import enemy
 import draw
 import player
+import purchasable
 
 testing = 0
-
-start = float(round(time.time()))
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
+BACKGROUND_WIDTH = 500
+BACKGROUND_HEIGHT = 500
 FPS: int = 60
 FramesPerSecond = pygame.time.Clock()
 
@@ -17,6 +18,7 @@ if pygame.init() == 0:
     print("PyGame could not initialize")
 
 logo = pygame.image.load("8bitlink.png")
+pause = pygame.transform.scale(pygame.image.load("Pause.png"), (600, 150))
 pygame.display.set_icon(logo)
 pygame.display.set_caption("# Learn to Code")
 
@@ -29,14 +31,7 @@ else:
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
 
-playerImage = pygame.image.load("really tiny soldier.png")
-player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
-
-bullet_damage: int = 75
-bullet_speed: int = 10
-
 Goblin = enemy(random.random(), 0, 64, 64, 2, 550, 100)
-score = 0
 
 
 def hit_logic(person1):
@@ -64,18 +59,7 @@ def hit_logic(person1):
 
 font = pygame.font.SysFont('comicsans', 30, True, True)  # Initializes Font
 
-background_x: int = -500
-background_y: int = -500
-xDelta: float = 0
-yDelta: float = 0
-extra_enemies: int = 0
-pauseMenu: bool = False
-wave: int = -1
-money: float = 0
-
-# background = pygame.image.load("backgrounddetailed1_flower.png")
-background = pygame.image.load("backgrounddetailed1.png")
-
+background = pygame.transform.scale(pygame.image.load("Stone Walls\stone_wall_1_small.png"), (BACKGROUND_HEIGHT, BACKGROUND_WIDTH))
 
 def set_background():
     rand_num: int = int(random.random() * 10)
@@ -86,35 +70,66 @@ def set_background():
 
 
 def runPauseMenu():
-    pauseMenuOff: bool = False
+    pauseMenu: bool = True
     fontSize: int = 200
     pauseFont = pygame.font.SysFont('comicsans', fontSize, True, True)
-    while pauseMenuOff == False:
-        screen.blit(pauseFont.render("Pause", True, (0, 0, 0)),
-                    (screen.get_width() / 2 - fontSize, screen.get_height() / 2 - fontSize / 2))
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
+    money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
+    while pauseMenu == True:
+        screen.blit(pause, (screen.get_width()/2 -300, screen.get_height()/2 - 75))
+        #mouse_position = pygame.mouse.get_pos()
+        #mouse_x = int(mouse_position[0] / 25)
+        #mouse_x *= 25
+        #mouse_y = int(mouse_position[1] / 25)
+        #mouse_y *= 25
+        #screen.blit(purchasable.wooden_wall_1, (mouse_x, mouse_y))
+        # screen.blit(pauseFont.render("Pause", True, (0, 0, 0)),
+                    # (screen.get_width() / 2 - fontSize, screen.get_height() / 2 - fontSize / 2))
+
+        for py_event in pygame.event.get():
+            if py_event.type == QUIT:
+                running = False
+                game_quit = True
+                pygame.quit()
+            if py_event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    pauseMenuOff = True
-            elif event.type == VIDEORESIZE:
+                    pauseMenu = False
+            elif event.type == VIDEORESIZE or VIDEOEXPOSE:
                 player_one.position_x = screen.get_width() / 2
                 player_one.position_y = screen.get_height() / 2
         pygame.display.update()
         FramesPerSecond.tick(FPS)
-        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, screen.get_width(),
+        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, screen.get_width(),
                              screen.get_height())
 
 
 game_quit: bool = False
 
 while not game_quit:
-    running: bool = True
-    while running:
 
+    # initializing in game variables
+    start = float(round(time.time()))
+    running: bool = True
+    background_x: int = -BACKGROUND_WIDTH
+    background_y: int = -BACKGROUND_HEIGHT
+    xDelta: float = 0
+    yDelta: float = 0
+    extra_enemies: int = 0
+    menuRunning: bool = False
+    wave: int = -1
+    money: float = 0
+    score: int = 0
+    playerImage = pygame.transform.scale(pygame.image.load("survivor-idle_rifle_0.png"), (57, 40))
+    player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
+    bullet_damage: int = 75
+    bullet_speed: int = 10
+    number_of_frames_shown: int = 0
+
+    while running:
+        number_of_frames_shown += 1
         if len(enemyList) == 0:
             wave += 1
-            if wave < 57:
-                multiplier = wave * 25
+            if wave < 60:
+                multiplier = wave * 10
             i: int = 0
             now = float(round(time.time()))
             health = 100 + (now - start) / 2
@@ -133,7 +148,7 @@ while not game_quit:
 
         mouse = pygame.mouse.get_pos()
         draw.draw(mouse, screen.get_width(), screen.get_height(), screen, enemyList, background, xDelta, yDelta,
-                  background_x, background_y, player_one)
+                  background_x, background_y, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, player_one)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -158,7 +173,7 @@ while not game_quit:
                                                buldeltax,
                                                buldeltay)
                     bullet.bulletList.append(new_bullet)
-                    #Gunfire.play()
+                    # Gunfire.play()
 
             if event.type == pygame.KEYDOWN:
 
@@ -171,7 +186,7 @@ while not game_quit:
                 if event.key == pygame.K_s:
                     yDelta += 5
                 if event.key == pygame.K_ESCAPE:
-                    pauseMenu = True
+                    menuRunning = True
 
             if event.type == pygame.KEYUP:
 
@@ -183,9 +198,24 @@ while not game_quit:
                     yDelta += 5
                 if event.key == pygame.K_s:
                     yDelta -= 5
-        if pauseMenu:
+        if menuRunning == True:
             runPauseMenu()
-            pauseMenu = False
+            menuRunning = False
+#########################################################
+#         Handles idle and walking animation
+        if xDelta == 0 and yDelta == 0:
+            player_one.walking_counter = 0
+            if number_of_frames_shown % 3 == 0:
+                player_one.idle_counter += 1
+                player_one.sprite_to_show_while_idle()
+
+        else:
+            player_one.idle_counter = 0
+            if number_of_frames_shown % 3 == 0:
+                player_one.walking_counter += 1
+                player_one.sprite_to_show_while_walking()
+#############################################################################################
+#       Not Currently used. If there are limits width and height then this will come into play
         if player_one.position_x < 0:
             player_one.position_x = 0
         if player_one.position_x > screen.get_width() - playerImage.get_size()[0]:
@@ -194,24 +224,21 @@ while not game_quit:
             player_one.position_y = 0
         if player_one.position_y > screen.get_height() - playerImage.get_size()[1]:
             player_one.position_y = screen.get_height() - playerImage.get_size()[1]
+##############################################################################################
 
         background_x -= xDelta
         background_y -= yDelta
         player_one.overall_position_x += xDelta
         player_one.overall_position_y -= yDelta
         if background_x >= 0:
-            background_x = -500
+            background_x = -BACKGROUND_WIDTH
         if background_y >= 0:
-            background_y = -500
+            background_y = -BACKGROUND_HEIGHT
+
         running = hit_logic(player_one)
-        score_text = font.render("Score: " + str(score), True, (0, 0, 0))
-        wave_text = font.render("Wave: " + str(wave), True, (0, 0, 0))
-        money_text = font.render("Money: $" + str("%.2f" % money), True, (0, 0, 0))
-        overall_position_text = font.render(str(player_one.overall_position_x) + ", " + str(player_one.overall_position_y), True, (0, 0, 0))
-        screen.blit(score_text, (2, 2))
-        screen.blit(wave_text, (screen.get_width() - 130, 2))
-        screen.blit(money_text, (2, 32))
-        screen.blit(overall_position_text, (screen.get_width()/2 - 50, 2))
+
+        draw.draw_useful_information(screen, font, score, wave, money, player_one)
+
         pygame.display.update()
         FramesPerSecond.tick(FPS)
 
@@ -232,11 +259,20 @@ while not game_quit:
 
     yes_tuple = (263, 343, 55, 30)
     no_tuple = (487, 343, 55, 30)
-
+    grey = (90, 90, 90)
+    white = (255, 255, 255)
     while game_over:
 
         mouse = pygame.mouse.get_pos()
-        draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3)
+
+        if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
+            if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
+                draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, white, grey)
+        elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
+            if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
+                draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, grey, white)
+        else:
+            draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, grey, grey)
         pygame.display.update()
         FramesPerSecond.tick(FPS)
 
@@ -249,9 +285,6 @@ while not game_quit:
                     if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
                         if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
                             game_over = False
-                            score = 0
-                            wave = -1
-                            money = 0
                             player_one.overall_position_x = 0
                             player_one.overall_position_y = 0
                     elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:

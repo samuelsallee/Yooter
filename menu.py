@@ -6,13 +6,13 @@ class menu:
     FontHeadline: pygame.font
     FontText: pygame.font
 
-    def init(self, fontProportions: int, screen, enemyList, background_x, background_y, background):
+    def init(self, fontProportions: int, screen, enemyList, background_x, background_y, background, BACKGROUND_WIDTH, BACKGROUND_HEIGHT):
         FontText = pygame.font.SysFont('comicsans', fontProportions, True, True)
         FontHeadline = pygame.font.SysFont('comicsans', 2 * fontProportions, True, True)
         pygame.display.update()
         import main
         main.FramesPerSecond.tick(main.FPS)
-        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, screen.get_width(),
+        draw.draw_pause_menu(screen, enemyList, background_x, background_y, background, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, screen.get_width(),
                              screen.get_height())
 
 
@@ -20,7 +20,7 @@ class pauseMenu(menu):
     def loopMenu(self, screen, enemyList, background_x, background_y, background):
         menuRunning: bool = True
         while menuRunning == True:
-            menu.init(160, screen, enemyList, background_x, background_y, background)
+            menu.init(160, screen, enemyList, background_x, background_y, background, BACKGROUND_WIDTH, BACKGROUND_HEIGHT)
             screen.blit(menu.FontHeadline.render("Pause", True, (0, 0, 0)), (
             screen.get_width() / 2 - menu.FontHeadline.size()[0],
             screen.get_height() / 2 - menu.FontHeadline.size()[1] / 2))
