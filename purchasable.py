@@ -74,3 +74,4 @@ shotgun_image = pygame.image.load("vippng.com-sawed-off-shotgun-png-3257780.png"
 
 
 wall_list = list()
+#
