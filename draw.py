@@ -30,15 +30,15 @@ def draw_enemy(enemyList, screen, player_x, player_y, xDelta, yDelta):
         enemy_object.draw(screen, player_x, player_y, xDelta, yDelta)
 
 
-def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, player):
+def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDelta, yDelta, background_x, background_y, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, player):
     i = background_x
     i2 = background_y
     while i <= SCREEN_WIDTH:
         while i2 <= SCREEN_HEIGHT:
             screen.blit(background, (i, i2))
-            i2 += 500
+            i2 += BACKGROUND_HEIGHT
         i2 = background_y
-        i += 500
+        i += BACKGROUND_WIDTH
     draw_player(mouse, player, screen)
     draw_bullet(SCREEN_WIDTH, SCREEN_HEIGHT, screen, xDelta, yDelta)
     draw_enemy(enemyList, screen, player.position_x, player.position_y, xDelta, yDelta)
@@ -46,15 +46,15 @@ def draw(mouse, SCREEN_WIDTH, SCREEN_HEIGHT, screen, enemyList, background, xDel
 
 
 
-def draw_pause_menu(screen, enemyList, background_x, background_y, background, SCREEN_WIDTH, SCREEN_HEIGHT):
+def draw_pause_menu(screen, enemyList, background_x, background_y, background, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT):
     i = background_x
     i2 = background_y
     while i <= SCREEN_WIDTH:
         while i2 <= SCREEN_HEIGHT:
             screen.blit(background, (i, i2))
-            i2 += 500
+            i2 += BACKGROUND_HEIGHT
         i2 = background_y
-        i += 500
+        i += BACKGROUND_WIDTH
     #menu.loopMenu(screen, enemyList, background_x, background_y, background)
     for enemy_object in enemyList:
         enemy_object.draw_pause(screen)
