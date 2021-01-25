@@ -149,8 +149,7 @@ while not game_quit:
             extra_enemies += 1
 
         mouse = pygame.mouse.get_pos()
-        draw.draw(mouse, screen.get_width(), screen.get_height(), screen, enemyList, background, xDelta, yDelta,
-                  background_x, background_y, player_one)
+        draw.draw(mouse, screen.get_width(), screen.get_height(), screen, enemyList, background, xDelta, yDelta,background_x, background_y, player_one)
 
         for event in pygame.event.get():
             if event.type == QUIT:
