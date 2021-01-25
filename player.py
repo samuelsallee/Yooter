@@ -6,8 +6,6 @@ class Player:
 
     def __init__(self, sprite, SCREEN_WIDTH, SCREEN_HEIGHT):
         self.player_size = (57, 40)  # changing this will fuck up a bunch of things
-        self.width = self.player_size[0]
-        self.height = self.player_size[1]
         self.playerImage = sprite
         self.image_copy = sprite
         self.direction: int = 0
@@ -25,7 +23,6 @@ class Player:
         self.initialize_player_walking_with_handgun()
         self.idle_counter: int = 0
         self.walking_counter: int = 0
-        self.health_total = self.health
 
     def set_speed(self, speed):
         self.speed = speed
@@ -50,8 +47,6 @@ class Player:
         self.image_copy = pygame.transform.rotate(self.playerImage, dy)
         self.player_center = (self.position_x-int(self.image_copy.get_width()/2), self.position_y-int(self.image_copy.get_height()/2))
         screen.blit(self.image_copy, self.player_center)
-        pygame.draw.rect(screen, (255, 0, 0), (self.position_x - self.width/2, self.position_y - self.height/2 - 20, 50, 10))
-        pygame.draw.rect(screen, (0, 128, 0), (self.position_x - self.width/2, self.position_y - self.height/2 - 20, 50 * self.health/self.health_total, 10))
 
     def initialize_player_idle_with_handgun(self):
         self.idle.clear()
@@ -196,4 +191,3 @@ class Player:
 
     def sprite_to_show_while_walking(self):
         self.playerImage = self.walking[self.walking_counter % 20]
-#
