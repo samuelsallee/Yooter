@@ -11,7 +11,7 @@ class enemy:
         self.height = height
         self.box_y = (self.y - self.height/2, self.y + self.height/2)
         self.box_x = (self.x - self.width/2, self.x + self.width/2)
-        # self.damage = dam
+        self.damage = 25
         self.end = end
         self.path = [self.x, self.end]
         # self.count = 0# for animation later
@@ -20,6 +20,8 @@ class enemy:
         self.health = health
         self.health_total = health
         self.center = (self.x - self.width/2, self.y - self.height/2)
+        self.frame_counter: int = 0
+        self.frame_at_last_hit: int = 0
 
     def draw_pause(self, screen):
         screen.blit(self.static, self.center)

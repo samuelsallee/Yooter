@@ -1,5 +1,6 @@
 import header
 from header import*
+# import main
 
 
 class things_to_buy:
@@ -11,18 +12,19 @@ class placeable(things_to_buy):
     def __init__(self, player):
         self.x: int = 0
         self.y: int = 0
-        self.overall_x: int = 0
-        self.overall_y: int = 0
 
-    def place(self, player, x, y):
-        self.overall_x = player.overall_position_x + x - player.position_x
-        self.overall_y = player.overall_position_y - y - player.position_y
+    # def place(self, player):
+    #     self.overall_x = player.overall_position_x + x - player.position_x
+    #     self.overall_y = player.overall_position_y - y - player.position_y
 
 
 class wall(placeable):
     def __init__(self, health, image):
         self.health: int = health
         self.image = image
+
+    #def draw_wall(self):
+        #if
 
 
 class turret(placeable):
