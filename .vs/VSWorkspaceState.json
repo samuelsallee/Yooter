@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\mainMenu"
   ],
-  "SelectedNode": "\\main.py",
+  "SelectedNode": "\\mainMenu\\button_play.png",
   "PreviewInSolutionExplorer": false
 }

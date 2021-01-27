@@ -10,6 +10,7 @@ SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
 BACKGROUND_WIDTH = 500
 BACKGROUND_HEIGHT = 500
+
 FPS: int = 60
 FramesPerSecond = pygame.time.Clock()
 
@@ -102,13 +103,63 @@ def runPauseMenu():
                              screen.get_height())
 
 
-game_quit: bool = False
+game_quit: bool = True
+mainMenu: bool = True
+
+###############################################################################
+# THIS IS WHERE THE MAIN MENU LOOP STARTS
+###############################################################################
+while mainMenu == True:
+    buttonWidth: int = 250
+    buttonHeight: int = 65
+    mmBackground = pygame.transform.scale(pygame.image.load("mainMenu\mmBackground.png"), (800, 720))
+    button_play = pygame.transform.scale(pygame.image.load("mainMenu\\button_play.png"), (buttonWidth, buttonHeight))
+    button_play_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_play_hovered.png"), (buttonWidth, buttonHeight))
+    box_button_play = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+    button_shop = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop.png"), (buttonWidth, buttonHeight))
+    button_shop_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop_hovered.png"), (buttonWidth, buttonHeight))
+    box_button_shop = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 50))
+    button_quit = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit.png"), (buttonWidth, buttonHeight))
+    button_quit_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit_hovered.png"), (buttonWidth, buttonHeight))
+    box_button_quit = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 150))
+    screen.blit(mmBackground, (0, 0))
+    screen.blit(button_play, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+    screen.blit(button_shop, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -50))
+    screen.blit(button_quit, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -150))
+    for py_event in pygame.event.get():
+       if py_event.type == QUIT:
+           running = False
+           game_quit = True
+           pygame.quit()
+    if box_button_play.collidepoint(pygame.mouse.get_pos()):
+        screen.blit(button_play_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+        if pygame.mouse.get_pressed(3)[0]:
+                    running = True
+                    mainMenu = False
+                    game_quit = False
+    elif box_button_shop.collidepoint(pygame.mouse.get_pos()):
+        screen.blit(button_shop_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 50))
+        if pygame.mouse.get_pressed(3)[0]:
+                    None
+    elif box_button_quit.collidepoint(pygame.mouse.get_pos()):
+        screen.blit(button_quit_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 150))
+        if pygame.mouse.get_pressed(3)[0]:
+                    running = False
+                    pygame.quit()
+    pygame.init()
+    pygame.display.update()
+    FramesPerSecond.tick(FPS)
+
+###############################################################################
+# END
+###############################################################################
 
 while not game_quit:
 
     # initializing in game variables
     start = float(round(time.time()))
     running: bool = True
+    pauseMenu: bool = False
     background_x: int = -BACKGROUND_WIDTH
     background_y: int = -BACKGROUND_HEIGHT
     xDelta: float = 0
@@ -124,7 +175,7 @@ while not game_quit:
     bullet_speed: int = 10
     number_of_frames_shown: int = 0
 
-    while running:
+    while running == True:
         number_of_frames_shown += 1
         if len(enemyList) == 0:
             wave += 1
@@ -291,3 +342,5 @@ while not game_quit:
                         if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
                             game_over = False
                             game_quit = True
+
+

@@ -1,0 +1,22 @@
+
+for py_event in pygame.event.get():
+       if py_event.type == QUIT:
+           running = False
+           game_quit = True
+           pygame.quit()
+       while button_play.get_rect().collidepoint(pygame.mouse.get_pos()):
+           screen.blit(button_play_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+           for py_event in pygame.event.get():
+                if pygame.mouse.get_pressed(3)[1]:
+                    running = True
+                    mainMenu = False
+       while button_shop.get_rect().collidepoint(pygame.mouse.get_pos()):
+           screen.blit(button_shop_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -50))
+           for py_event in pygame.event.get():
+                if pygame.mouse.get_pressed(3)[1]:
+                    None
+       while button_quit.get_rect().collidepoint(pygame.mouse.get_pos()):
+           screen.blit(button_quit_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -150))
+           for py_event in pygame.event.get():
+                if pygame.mouse.get_pressed(3)[1]:
+                    None
