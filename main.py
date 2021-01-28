@@ -112,37 +112,45 @@ mainMenu: bool = True
 while mainMenu == True:
     buttonWidth: int = 250
     buttonHeight: int = 65
-    mmBackground = pygame.transform.scale(pygame.image.load("mainMenu\mmBackground.png"), (800, 720))
+    mmBackground = pygame.transform.scale(pygame.image.load("mainMenu\mmBackground.png"), (1600, 1000))
     button_play = pygame.transform.scale(pygame.image.load("mainMenu\\button_play.png"), (buttonWidth, buttonHeight))
     button_play_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_play_hovered.png"), (buttonWidth, buttonHeight))
-    box_button_play = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+    box_button_play = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 40))
     button_shop = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop.png"), (buttonWidth, buttonHeight))
     button_shop_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop_hovered.png"), (buttonWidth, buttonHeight))
-    box_button_shop = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 50))
+    box_button_shop = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 40))
+    button_options = pygame.transform.scale(pygame.image.load("mainMenu\\button_options.png"), (buttonWidth, buttonHeight))
+    button_options_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_options_hovered.png"), (buttonWidth, buttonHeight))
+    box_button_options = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 120))
     button_quit = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit.png"), (buttonWidth, buttonHeight))
     button_quit_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit_hovered.png"), (buttonWidth, buttonHeight))
-    box_button_quit = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 150))
-    screen.blit(mmBackground, (0, 0))
-    screen.blit(button_play, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
-    screen.blit(button_shop, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -50))
-    screen.blit(button_quit, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -150))
+    box_button_quit = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 200))
+    screen.blit(mmBackground, (screen.get_width()/2 - 1600/2, 0))
+    screen.blit(button_play, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 40))
+    screen.blit(button_shop, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -40))
+    screen.blit(button_options, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -120))
+    screen.blit(button_quit, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -200))
     for py_event in pygame.event.get():
        if py_event.type == QUIT:
            running = False
            game_quit = True
            pygame.quit()
     if box_button_play.collidepoint(pygame.mouse.get_pos()):
-        screen.blit(button_play_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+        screen.blit(button_play_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 40))
         if pygame.mouse.get_pressed(3)[0]:
                     running = True
                     mainMenu = False
                     game_quit = False
     elif box_button_shop.collidepoint(pygame.mouse.get_pos()):
-        screen.blit(button_shop_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 50))
+        screen.blit(button_shop_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 40))
+        if pygame.mouse.get_pressed(3)[0]:
+                    None
+    elif box_button_options.collidepoint(pygame.mouse.get_pos()):
+        screen.blit(button_options_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 120))
         if pygame.mouse.get_pressed(3)[0]:
                     None
     elif box_button_quit.collidepoint(pygame.mouse.get_pos()):
-        screen.blit(button_quit_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 150))
+        screen.blit(button_quit_hovered, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 200))
         if pygame.mouse.get_pressed(3)[0]:
                     running = False
                     pygame.quit()
@@ -296,7 +304,7 @@ while not game_quit:
     ###############################################################################
     # THIS IS WHERE THE GAME OVER LOOP STARTS
     ###############################################################################
-
+    #Obsolete{
     enemyList.clear()
     bullet.bulletList.clear()
     extra_enemies = 0
@@ -312,35 +320,41 @@ while not game_quit:
     no_tuple = (487, 343, 55, 30)
     grey = (90, 90, 90)
     white = (255, 255, 255)
+    #}
     while game_over:
-
-        mouse = pygame.mouse.get_pos()
-
-        if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
-            if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
-                draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, white, grey)
-        elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
-            if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
-                draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, grey, white)
-        else:
-            draw.draw_game_over_screen(screen, yes_tuple, no_tuple, gameOverFont, gameOverFont2, gameOverFont3, grey, grey)
+        goButtonWidth: int = 200
+        goButtonHeight: int = 45
+        img_skull = pygame.transform.scale(pygame.image.load("gameOver\skull.png"), (100, 82))
+        img_gameOver = pygame.transform.scale(pygame.image.load("gameOver\gameover.png"), (400, 229))
+        button_retry = pygame.transform.scale(pygame.image.load("gameOver\\button_retry.png"), (goButtonWidth, goButtonHeight))
+        button_retry_hovered = pygame.transform.scale(pygame.image.load("gameOver\\button_retry_hovered.png"), (goButtonWidth, goButtonHeight))
+        box_button_retry = button_play.get_rect(topleft = (screen.get_width()/2 - goButtonWidth/2 - 200, screen.get_height()/2 - -200))
+        button_quit2 = pygame.transform.scale(pygame.image.load("gameOver\\button_quit2.png"), (goButtonWidth, goButtonHeight))
+        button_quit2_hovered = pygame.transform.scale(pygame.image.load("gameOver\\button_quit2_hovered.png"), (goButtonWidth, goButtonHeight))
+        box_button_quit2 = button_quit.get_rect(topleft = (screen.get_width()/2 - goButtonWidth/2 - - 200, screen.get_height()/2 - -200))
+        
+        screen.fill([0, 0, 0])
+        screen.blit(img_skull, (screen.get_width()/2 - 100/2, screen.get_height()/2 - 82/2 - 200))
+        screen.blit(img_gameOver, (screen.get_width()/2 - 400/2, screen.get_height()/2 - 229/2))
+        screen.blit(button_retry, (screen.get_width()/2 - goButtonWidth/2 - 200, screen.get_height()/2 - -200))
+        screen.blit(button_quit2, (screen.get_width()/2 - goButtonWidth/2 - - 200, screen.get_height()/2 - -200))
+        for py_event in pygame.event.get():
+           if py_event.type == QUIT:
+               game_over = False
+               game_quit = True
+               pygame.quit()
+        if box_button_retry.collidepoint(pygame.mouse.get_pos()):
+            screen.blit(button_retry_hovered, (screen.get_width()/2 - goButtonWidth/2 - 200, screen.get_height()/2 - - 200))
+            if pygame.mouse.get_pressed(3)[0]:
+                        game_over = False
+                        player_one.overall_position_x = 0
+                        player_one.overall_position_y = 0
+        elif box_button_quit2.collidepoint(pygame.mouse.get_pos()):
+            screen.blit(button_quit2_hovered, (screen.get_width()/2 - goButtonWidth/2 - - 200, screen.get_height()/2 - - 200))
+            if pygame.mouse.get_pressed(3)[0]:
+                        game_over = False
+                        game_quit = True
         pygame.display.update()
         FramesPerSecond.tick(FPS)
-
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                game_over = False
-                pygame.quit()
-            elif event.type == MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed(3)[0]:
-                    if yes_tuple[0] < mouse[0] < yes_tuple[0] + yes_tuple[2]:
-                        if yes_tuple[1] < mouse[1] < yes_tuple[1] + yes_tuple[3]:
-                            game_over = False
-                            player_one.overall_position_x = 0
-                            player_one.overall_position_y = 0
-                    elif no_tuple[0] < mouse[0] < no_tuple[0] + no_tuple[2]:
-                        if no_tuple[1] < mouse[1] < no_tuple[1] + no_tuple[3]:
-                            game_over = False
-                            game_quit = True
 
 
