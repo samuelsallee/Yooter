@@ -24,16 +24,19 @@ class enemy:
         self.frame_at_last_hit: int = 0
 
     def draw_pause(self, screen):
-        screen.blit(self.static, self.center)
+        if 0 < self.center[0] < screen.get_width():
+            if 0 < self.center[1] <screen.get_height():
+                screen.blit(self.static, self.center)
         
     def draw(self, screen, player_x, player_y, xDelta, yDelta):
         self.move(player_x, player_y, xDelta, yDelta)
-        if self.velocity > 0:
-            self.center =  (self.x - self.width/2, self.y-self.height/2)
-            screen.blit(self.static, self.center)
-        self.hitbox = (self.x + 30, self.y + 30, 40, 90)
-        pygame.draw.rect(screen, (255, 0, 0), (self.x - self.width/2, self.y - self.height/2, 50, 10))
-        pygame.draw.rect(screen, (0, 128, 0), (self.x - self.width/2, self.y - self.height/2, 50 * self.health/self.health_total, 10))
+        self.center =  (self.x - self.width/2, self.y-self.height/2)
+        if -100 < self.center[0] < float(screen.get_width()) + 100:
+            if -100 < self.center[1] < float(screen.get_height()) + 100:
+                screen.blit(self.static, self.center)
+                self.hitbox = (self.x + 30, self.y + 30, 40, 90)
+                pygame.draw.rect(screen, (255, 0, 0), (self.x - self.width/2, self.y - self.height/2, 50, 10))
+                pygame.draw.rect(screen, (0, 128, 0), (self.x - self.width/2, self.y - self.height/2, 50 * self.health/self.health_total, 10))
         #pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2)  # drawing hitbox right now
 
     def move(self, player_x, player_y, xDelta, yDelta):

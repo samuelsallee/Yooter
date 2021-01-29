@@ -109,19 +109,19 @@ mainMenu: bool = True
 ###############################################################################
 # THIS IS WHERE THE MAIN MENU LOOP STARTS
 ###############################################################################
+buttonWidth: int = 250
+buttonHeight: int = 65
+mmBackground = pygame.transform.scale(pygame.image.load("mainMenu\mmBackground.png"), (800, 720))
+button_play = pygame.transform.scale(pygame.image.load("mainMenu\\button_play.png"), (buttonWidth, buttonHeight))
+button_play_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_play_hovered.png"), (buttonWidth, buttonHeight))
+box_button_play = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
+button_shop = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop.png"), (buttonWidth, buttonHeight))
+button_shop_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop_hovered.png"), (buttonWidth, buttonHeight))
+box_button_shop = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 50))
+button_quit = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit.png"), (buttonWidth, buttonHeight))
+button_quit_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit_hovered.png"), (buttonWidth, buttonHeight))
+box_button_quit = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 150))
 while mainMenu == True:
-    buttonWidth: int = 250
-    buttonHeight: int = 65
-    mmBackground = pygame.transform.scale(pygame.image.load("mainMenu\mmBackground.png"), (800, 720))
-    button_play = pygame.transform.scale(pygame.image.load("mainMenu\\button_play.png"), (buttonWidth, buttonHeight))
-    button_play_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_play_hovered.png"), (buttonWidth, buttonHeight))
-    box_button_play = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
-    button_shop = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop.png"), (buttonWidth, buttonHeight))
-    button_shop_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_shop_hovered.png"), (buttonWidth, buttonHeight))
-    box_button_shop = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 50))
-    button_quit = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit.png"), (buttonWidth, buttonHeight))
-    button_quit_hovered = pygame.transform.scale(pygame.image.load("mainMenu\\button_quit_hovered.png"), (buttonWidth, buttonHeight))
-    box_button_quit = button_play.get_rect(topleft = (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - - 150))
     screen.blit(mmBackground, (0, 0))
     screen.blit(button_play, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - 50))
     screen.blit(button_shop, (screen.get_width()/2 - buttonWidth/2, screen.get_height()/2 - -50))
@@ -146,7 +146,6 @@ while mainMenu == True:
         if pygame.mouse.get_pressed(3)[0]:
                     running = False
                     pygame.quit()
-    pygame.init()
     pygame.display.update()
     FramesPerSecond.tick(FPS)
 

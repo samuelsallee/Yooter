@@ -47,3 +47,25 @@ class mainMenu(menu):
                     main.player_one.position_x = screen.get_width() / 2
                     main.player_one.position_y = screen.get_height() / 2
             # pygame.draw.rect(screen.get_width()/2, screen.get_height()/2, 200, 20)
+
+def shopMenu():
+    shopbool: bool = True
+    while shopbool:
+        mouse = pygame.mouse.get_pos()
+        """
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+                pygame.quit()
+
+            elif event.type == VIDEORESIZE:
+                player_one.position_x = screen.get_width() / 2
+                player_one.position_y = screen.get_height() / 2
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed(5)[0]:
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    menuRunning = True 
+    """
