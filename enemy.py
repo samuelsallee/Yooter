@@ -4,8 +4,8 @@ from header import *
 class enemy:
 
     def __init__(self, x, y, width, height, vel, end, health):
-        EliteKnight = pygame.transform.scale(pygame.image.load("Enemies\Eliteknightshotgun.png"), (64, 64))
-        Axer = pygame.transform.scale(pygame.image.load("Enemies\Axer.png"),(80,80))
+        EliteKnight = pygame.transform.scale(pygame.image.load("Eliteknightshotgun.png"), (64, 64))
+        Axer = pygame.transform.scale(pygame.image.load("Axer.png"),(80,80))
         Enemy_list = (EliteKnight,Axer)
         Enemy = random.choice(Enemy_list)
         self.static = Enemy
