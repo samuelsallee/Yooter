@@ -4,7 +4,11 @@ from header import *
 class enemy:
 
     def __init__(self, x, y, width, height, vel, end, health):
-        self.static = pygame.transform.scale(pygame.image.load('Eliteknightshotgun.png'), (64, 64))
+        EliteKnight = pygame.transform.scale(pygame.image.load("Eliteknightshotgun.png"), (64, 64))
+        Axer = pygame.transform.scale(pygame.image.load("Axer.png"),(80,80))
+        Enemy_list = (EliteKnight,Axer)
+        Enemy = random.choice(Enemy_list)
+        self.static = Enemy
         self.x = x
         self.y = y
         self.width = width
@@ -14,9 +18,11 @@ class enemy:
         self.damage = 25
         self.end = end
         self.path = [self.x, self.end]
-        # self.count = 0# for animation later
         self.velocity = vel
         self.hitbox = (self.x + 30, self.y + 30, 40, 90)
+        #if Enemy == EliteKnight:
+        #if Enemy == Axer:
+            #self.hitbox = (self.x+ 120,self.y +120,70,100)
         self.health = health
         self.health_total = health
         self.center = (self.x - self.width/2, self.y - self.height/2)
@@ -24,19 +30,16 @@ class enemy:
         self.frame_at_last_hit: int = 0
 
     def draw_pause(self, screen):
-        if 0 < self.center[0] < screen.get_width():
-            if 0 < self.center[1] <screen.get_height():
-                screen.blit(self.static, self.center)
+        screen.blit(self.static, self.center)
         
     def draw(self, screen, player_x, player_y, xDelta, yDelta):
         self.move(player_x, player_y, xDelta, yDelta)
-        self.center =  (self.x - self.width/2, self.y-self.height/2)
-        if -100 < self.center[0] < float(screen.get_width()) + 100:
-            if -100 < self.center[1] < float(screen.get_height()) + 100:
-                screen.blit(self.static, self.center)
-                self.hitbox = (self.x + 30, self.y + 30, 40, 90)
-                pygame.draw.rect(screen, (255, 0, 0), (self.x - self.width/2, self.y - self.height/2, 50, 10))
-                pygame.draw.rect(screen, (0, 128, 0), (self.x - self.width/2, self.y - self.height/2, 50 * self.health/self.health_total, 10))
+        if self.velocity > 0:
+            self.center =  (self.x - self.width/2, self.y-self.height/2)
+            screen.blit(self.static, self.center)
+        self.hitbox = (self.x + 30, self.y + 30, 40, 90)
+        pygame.draw.rect(screen, (255, 0, 0), (self.x - self.width/2, self.y - self.height/2, 50, 10))
+        pygame.draw.rect(screen, (0, 128, 0), (self.x - self.width/2, self.y - self.height/2, 50 * self.health/self.health_total, 10))
         #pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 2)  # drawing hitbox right now
 
     def move(self, player_x, player_y, xDelta, yDelta):
