@@ -14,6 +14,34 @@ BACKGROUND_HEIGHT = 500
 FPS: int = 60
 FramesPerSecond = pygame.time.Clock()
 
+##########################################
+# File Hndling 
+##########################################
+items_file = open("MoneyAndItems.txt", "at")
+items_file.close()
+items_file = open("MoneyAndItems.txt", "rt")
+check = items_file.readline()
+if not check:
+    money = 0
+    int2 = 0
+else:
+    myint = int(items_file.readline())
+    int2 = int(items_file.readline())
+items_file.close()
+buffer = 0
+print(myint)
+print(int2)
+myint += 5
+int2 += 12
+print(myint)
+print(int2)
+items_file = open("MoneyAndItems.txt", "wt")
+items_file.write(str(buffer) + "\n")
+items_file.write(str(myint) + "\n")
+items_file.write(str(int2) + "\n")
+items_file.close()
+##########################################
+
 enemyList = list()
 if pygame.init() == 0:
     print("PyGame could not initialize")
@@ -176,7 +204,6 @@ while not game_quit:
     extra_enemies: int = 0
     menuRunning: bool = False
     wave: int = -1
-    money: float = 0
     score: int = 0
     playerImage = pygame.transform.scale(pygame.image.load("survivor-idle_rifle_0.png"), (57, 40))
     player_one = player.Player(playerImage, screen.get_width(), screen.get_height())
